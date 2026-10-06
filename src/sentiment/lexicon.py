@@ -1,5 +1,6 @@
 LEXICON = {
     # english positive
+
     "good": 1.9,
     "great": 3.1,
     "excellent": 3.4,
@@ -19,6 +20,7 @@ LEXICON = {
     "ok": 0.9,
 
     # tagalog positive
+
     "maganda": 2.6,
     "ganda": 2.4,
     "sulit": 2.8,
@@ -34,6 +36,7 @@ LEXICON = {
     "ayos": 1.8,
 
     # english negative
+
     "bad": -2.5,
     "worst": -3.4,
     "terrible": -3.2,
