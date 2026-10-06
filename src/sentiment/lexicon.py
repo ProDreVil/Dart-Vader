@@ -1,5 +1,4 @@
 LEXICON = {
-
     # english positive
 
     "good": 1.9,
