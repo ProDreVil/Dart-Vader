@@ -2,6 +2,7 @@ import subprocess
 import time
 import msvcrt
 import winsound
+import base64
 
 from config import PROJECT_NAME, DATA_FILE, RAW_DATA_DIR
 from collector.parser import parse_reviews_from_text
@@ -9,13 +10,18 @@ from collector.storage import save_reviews
 
 def get_clipboard():
     result = subprocess.run(
-        ["powershell", "-command", "Get-Clipboard"],
+        [
+            "powershell",
+            "-command",
+            "$text = Get-Clipboard -Raw; [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($text))"
+        ],
         capture_output=True,
         text=True,
-        encoding="utf-8",
-        errors="replace"
+        encoding="ascii"
     )
-    return result.stdout
+    if not result.stdout.strip():
+        return ""
+    return base64.b64decode(result.stdout.strip()).decode("utf-8")
 
 def play_sfx():
     winsound.PlaySound(None, 0)

@@ -1,31 +1,63 @@
 import re
 
+def extract_product_name(lines):
+    for line in lines:
+        if line.startswith("Product image "):
+            return line[len("Product image "):].strip()
+    return ""
+
 def parse_reviews_from_text(text):
     reviews = []
-    date_pattern = re.compile(r"^(\d{4}-\d{2}-\d{2})\s+\d{2}:\d{2}")
+    review_header_pattern = re.compile(r"^(\d{4}-\d{2}-\d{2})\s+\d{2}:\d{2}\s+\|\s+Variation:")
     lines = [line.strip() for line in text.splitlines()]
+    try:
+        ratings_start = lines.index("Product Ratings")
+    except ValueError:
+        return []
+    product_name = extract_product_name(lines)
+    if not product_name:
+        product_name = "Unknown Product"
+    ratings_end = len(lines)
     for index, line in enumerate(lines):
-        match = date_pattern.match(line)
+        if "From The Same Shop" in line:
+            ratings_end = index
+            break
+    lines = lines[:ratings_end]
+    for index, line in enumerate(lines):
+        match = review_header_pattern.match(line)
         if not match:
             continue
         date = match.group(1)
-        username = lines[index - 1] if index > 0 else ""
         review_lines = []
         for current in lines[index + 1:]:
-            if current.lower() == "seller's response:":
+            if "From The Same Shop" in current:
                 break
-            if date_pattern.match(current):
+            if re.search(r"\bprofile\s+\S+", current, re.IGNORECASE):
+                current = re.split(r"\bprofile\b", current, maxsplit=1, flags=re.IGNORECASE)[0].strip()
+                if current:
+                    review_lines.append(current)
+                break
+            if review_header_pattern.match(current):
                 break
             if re.fullmatch(r"\d+:\d{2}", current):
+                break
+            if re.search(r"helpful\?", current, re.IGNORECASE):
+                before_helpful = re.split(r"helpful\?", current, maxsplit=1, flags=re.IGNORECASE)[0].strip()
+                if before_helpful:
+                    review_lines.append(before_helpful)
+                break
+            if re.fullmatch(r"[a-zA-Z]\*{3,}[a-zA-Z]", current):
+                break
+            if re.fullmatch(r"\d+", current):
                 continue
             review_lines.append(current)
         review_text = " ".join(review_lines).strip()
+        review_text = re.sub(r"\s+", " ", review_text)
         if review_text:
             reviews.append({
                 "review_id": "",
-                "product_name": "",
+                "product_name": product_name,
                 "review_text": review_text,
                 "date": date,
-                "review_url": "",
             })
     return reviews
