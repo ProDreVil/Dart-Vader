@@ -1,0 +1,7 @@
+PROJECT_NAME = "Dart Vader"
+
+DATA_FILE = "data/reviews.csv"
+RAW_DATA_DIR = "data/raw"
+
+TARGET_REVIEW_COUNT = 300
+TEST_REVIEW_COUNT = 100
