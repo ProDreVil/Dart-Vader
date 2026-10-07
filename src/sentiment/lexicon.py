@@ -1,6 +1,8 @@
-LEXICON = {
-    # english positive
+# ============================================================
+# ENGLISH POSITIVE WORDS
+# ============================================================
 
+ENGLISH_POSITIVE = {
     "good": 1.9,
     "great": 3.1,
     "excellent": 3.4,
@@ -16,8 +18,6 @@ LEXICON = {
     "happy": 2.7,
     "satisfied": 2.3,
     "legit": 2.0,
-    "okay": 0.9,
-    "ok": 0.9,
     "like": 2.0,
     "awesome": 3.1,
     "fantastic": 3.3,
@@ -59,9 +59,13 @@ LEXICON = {
     "flawless": 3.2,
     "outstanding": 3.3,
     "bargain": 2.0,
+}
 
-    # tagalog positive
+# ============================================================
+# TAGALOG / FILIPINO POSITIVE WORDS
+# ============================================================
 
+TAGALOG_POSITIVE = {
     "maganda": 2.6,
     "ganda": 2.4,
     "sulit": 2.8,
@@ -115,9 +119,13 @@ LEXICON = {
     "mapagkakatiwalaan": 2.0,
     "napakaayos": 2.8,
     "maligaya": 2.4,
+}
 
-    # english negative
-     
+# ============================================================
+# ENGLISH NEGATIVE WORDS
+# ============================================================
+
+ENGLISH_NEGATIVE = {
     "shit": -2.5,
     "bad": -2.5,
     "worst": -3.4,
@@ -148,7 +156,6 @@ LEXICON = {
     "overpriced": -2.0,
     "unusable": -2.8,
     "regret": -2.5,
-    "refund": -1.5,
     "faulty": -2.8,
     "dented": -2.2,
     "scratched": -2.0,
@@ -175,9 +182,13 @@ LEXICON = {
     "malfunction": -2.6,
     "frustrating": -2.5,
     "worthless": -3.0,
+}
 
-    #tagalog negative
-     
+# ============================================================
+# TAGALOG / FILIPINO NEGATIVE WORDS
+# ============================================================
+
+TAGALOG_NEGATIVE = {
     "awit": -2.0,
     "tangna": -3.0,
     "kupal": -2.5,
@@ -235,7 +246,46 @@ LEXICON = {
     "nadaya": -3.0,
 }
 
-NEGATIONS = ["not", "no", "never", "hindi", "di", "wala", "ayaw"]
+# ============================================================
+# NEUTRAL / CONTEXT-DEPENDENT WORDS
+# ============================================================
+
+NEUTRAL_WORDS = {
+    "okay": 0.0,
+    "ok": 0.0,
+    "refund": 0.0,
+}
+
+# ============================================================
+# COMBINED LEXICON
+# ============================================================
+
+LEXICON = {
+    **ENGLISH_POSITIVE,
+    **TAGALOG_POSITIVE,
+    **ENGLISH_NEGATIVE,
+    **TAGALOG_NEGATIVE,
+    **NEUTRAL_WORDS,
+}
+
+
+# ============================================================
+# NEGATIONS
+# ============================================================
+
+NEGATIONS = {
+    "not",
+    "no",
+    "never",
+    "hindi",
+    "di",
+    "wala",
+    "ayaw",
+}
+
+# ============================================================
+# BOOSTERS / DIMINISHERS
+# ============================================================
 
 BOOSTERS = {
     "very": 0.3,
@@ -250,8 +300,10 @@ BOOSTERS = {
 def get_word_score(word):
     return LEXICON.get(word.lower(), 0)
 
+
 def is_negation(word):
     return word.lower() in NEGATIONS
+
 
 def get_booster(word):
     return BOOSTERS.get(word.lower(), 0)
