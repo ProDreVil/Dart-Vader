@@ -3,6 +3,7 @@
 # ============================================================
 
 ENGLISH_POSITIVE = {
+    "damn": 2.0,
     "good": 1.9,
     "great": 3.1,
     "excellent": 3.4,
@@ -66,6 +67,7 @@ ENGLISH_POSITIVE = {
 # ============================================================
 
 TAGALOG_POSITIVE = {
+    "bangis": -2.0,
     "maganda": 2.6,
     "ganda": 2.4,
     "sulit": 2.8,
@@ -126,6 +128,10 @@ TAGALOG_POSITIVE = {
 # ============================================================
 
 ENGLISH_NEGATIVE = {
+    "idiot": -1.9,
+    "dambass": -2.0,
+    "bitch": -2.0,
+    "fuck": -3.0,
     "shit": -2.5,
     "bad": -2.5,
     "worst": -3.4,
@@ -189,6 +195,12 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
+    
+    "kingina": -2.5,
+    "tangina": -3.0,
+    "putangina": -3.0,
+    "gasgas": -2.0,
+    "langya": -1.9,
     "awit": -2.0,
     "tangna": -3.0,
     "kupal": -2.5,
