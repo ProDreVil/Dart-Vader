@@ -300,10 +300,8 @@ BOOSTERS = {
 def get_word_score(word):
     return LEXICON.get(word.lower(), 0)
 
-
 def is_negation(word):
     return word.lower() in NEGATIONS
-
 
 def get_booster(word):
     return BOOSTERS.get(word.lower(), 0)
