@@ -9,14 +9,30 @@ def load_reviews(filepath):
     with open(filepath, "r", newline="", encoding="utf-8-sig") as file:
         return list(csv.DictReader(file))
 
-def analyze_reviews(reviews):
+def analyze_reviews(reviews, existing_reviews=None):
     evaluated = []
+    existing_reviews = existing_reviews or {}
     for review in reviews:
+        review_id = review["review_id"]
+        if review_id in existing_reviews:
+            evaluated.append(existing_reviews[review_id])
+            continue
         result = analyze_sentiment(review["review_text"])
         evaluated_review = review.copy()
         evaluated_review["sentiment_score"] = result["score"]
         evaluated_review["sentiment"] = result["sentiment"]
         evaluated.append(evaluated_review)
+    return evaluated
+
+def analyze_and_save(input_file, output_file):
+    reviews = load_reviews(input_file)
+    existing = load_reviews(output_file)
+    existing_reviews = {
+        review["review_id"]: review
+        for review in existing
+    }
+    evaluated = analyze_reviews(reviews, existing_reviews)
+    save_analysis(evaluated, output_file)
     return evaluated
 
 def summarize(reviews):

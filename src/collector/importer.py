@@ -29,7 +29,6 @@ def play_sfx():
 
 def run_importer():
     print(f"{PROJECT_NAME} is starting...")
-    print("(Press [S] to stop)")
     previous_clipboard = ""
     start_time = time.time()
     while time.time() - start_time < 600:

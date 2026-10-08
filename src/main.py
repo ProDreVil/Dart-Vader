@@ -1,12 +1,11 @@
-from evaluation.evaluator import load_reviews, analyze_reviews, save_analysis
+from evaluation.evaluator import analyze_and_save
 from config import DATA_FILE
 
 def main():
-    reviews = load_reviews(DATA_FILE)
-    evaluated = analyze_reviews(reviews)
+    print("Started Analysis...")
     output_file = "data/manual/analyzed_reviews.csv"
-    save_analysis(evaluated, output_file)
-    print(f"\nAnalysis saved to {output_file}")
+    analyze_and_save(DATA_FILE, output_file)
+    print(f"Analysis saved to {output_file}")
 
 if __name__ == "__main__":
     main()
