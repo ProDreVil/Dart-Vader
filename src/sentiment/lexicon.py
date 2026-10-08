@@ -195,7 +195,6 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
-    
     "kingina": -2.5,
     "tangina": -3.0,
     "putangina": -3.0,
