@@ -8,16 +8,25 @@ from sentiment.analyzer import analyze_sentiment
 TEST_REVIEWS = [
     "good",
     "bad",
+    "baaad",
+    "baaaaaad",
     "not good",
     "very good",
     "sobrang ganda",
     "hindi maganda",
     "GOOD!!!",
+    "sooo good",
     "soooo good",
+    "soooooo good",
+    "maganda",
+    "magandaaa",
+    "magandaaaaaa",
     "pangit 😡",
     "good quality",
     "super bad product",
     "Call me high but this product is super bad",
+    "sobrang ganda ng product",
+    "sobrang ganda ng product pero baaad",
 ]
 
 def main():

@@ -1,5 +1,5 @@
 from sentiment.tokenizer import tokenize
-from sentiment.lexicon import get_word_score
+from sentiment.lexicon import get_word_score, find_closest_word, get_booster
 from sentiment.rules import *
 from sentiment.context import analyze_context
 
@@ -16,6 +16,13 @@ def analyze_sentiment(text):
         normalized_token = normalize_repeated_letters(token)
         context = analyze_context(tokens, index)
         word_score = get_word_score(normalized_token)
+        if word_score == 0 and get_booster(token) == 0:
+            closest_word, distance = find_closest_word(normalized_token)
+            if closest_word is not None:
+                word_score = get_word_score(closest_word)
+                repeated_booster = get_repeated_letter_booster(token)
+                if repeated_booster != 0:
+                    word_score = apply_booster(word_score, repeated_booster)
         if word_score == 0:
             emoji_score = get_emoji_score(token)
             if emoji_score != 0:
@@ -25,9 +32,13 @@ def analyze_sentiment(text):
         if has_negation(tokens, index):
             word_score = apply_negation(word_score)
         booster = get_nearby_booster(tokens, index)
+        if index > 0:
+            repeated_booster = get_repeated_letter_booster(tokens[index - 1])
+            if repeated_booster != 0:
+                booster += repeated_booster
         if booster != 0:
             word_score = apply_booster(word_score, booster)
-        word_score = apply_capitalization(word_score, token)
+            word_score = apply_capitalization(word_score, token)
         if context["has_aspect"]:
             if word_score > 0:
                 word_score += 0.1

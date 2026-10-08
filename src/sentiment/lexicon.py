@@ -317,3 +317,31 @@ def is_negation(word):
 
 def get_booster(word):
     return BOOSTERS.get(word.lower(), 0)
+
+def levenshtein_distance(first, second):
+    if len(first) < len(second):
+        return levenshtein_distance(second, first)
+    previous_row = list(range(len(second) + 1))
+    for i, first_char in enumerate(first, start=1):
+        current_row = [i]
+        for j, second_char in enumerate(second, start=1):
+            insertions = previous_row[j] + 1
+            deletions = current_row[j - 1] + 1
+            substitutions = previous_row[j - 1] + (first_char != second_char)
+            current_row.append(min(insertions, deletions, substitutions))
+        previous_row = current_row
+    return previous_row[-1]
+
+def find_closest_word(word):
+    word = word.lower()
+    best_match = None
+    best_distance = float("inf")
+    for lexicon_word in LEXICON:
+        distance = levenshtein_distance(word, lexicon_word)
+        if distance < best_distance:
+            best_distance = distance
+            best_match = lexicon_word
+    max_distance = max(1, len(word) // 4)
+    if best_distance <= max_distance:
+        return best_match, best_distance
+    return None, best_distance
