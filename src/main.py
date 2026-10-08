@@ -9,12 +9,12 @@ from config import DATA_FILE
 # Pinutin mo 'S' kung gusto mo i-stop yung program, 10 minutes lang siya gagana
 
 def main():
-    # run_importer()
-    reviews = load_reviews(DATA_FILE)
-    evaluated = analyze_reviews(reviews)
-    output_file = "data/analyzed_reviews.csv"
-    save_analysis(evaluated, output_file)
-    print(f"\nAnalysis saved to {output_file}")
+    run_importer()
+    # reviews = load_reviews(DATA_FILE)
+    # evaluated = analyze_reviews(reviews)
+    # output_file = "data/analyzed_reviews.csv"
+    # save_analysis(evaluated, output_file)
+    # print(f"\nAnalysis saved to {output_file}")
 
 if __name__ == "__main__":
     main()
