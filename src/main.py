@@ -1,9 +1,12 @@
 from evaluation.evaluator import analyze_and_save
-from config import DATA_FILE
+from config import DATA_FILE, ANALYZED_DATA_FILE
+
+# DI NA DITO YUNG PAGKUHA NG REVIEWS, CHECK `import.py`
+# DITO MUNA YUNG ANALYSIS
 
 def main():
     print("Started Analysis...")
-    output_file = "data/manual/analyzed_reviews.csv"
+    output_file = ANALYZED_DATA_FILE
     analyze_and_save(DATA_FILE, output_file)
     print(f"Analysis saved to {output_file}")
 

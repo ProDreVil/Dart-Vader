@@ -1,5 +1,6 @@
 import csv
 import os
+import time
 
 from sentiment.analyzer import analyze_sentiment
 
@@ -17,7 +18,10 @@ def analyze_reviews(reviews, existing_reviews=None):
         if review_id in existing_reviews:
             evaluated.append(existing_reviews[review_id])
             continue
+        start_time = time.perf_counter()
         result = analyze_sentiment(review["review_text"])
+        elapsed_time = time.perf_counter() - start_time
+        print(f"{review_id}: {elapsed_time:.4f}s")
         evaluated_review = review.copy()
         evaluated_review["sentiment_score"] = result["score"]
         evaluated_review["sentiment"] = result["sentiment"]

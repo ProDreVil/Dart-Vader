@@ -2,6 +2,7 @@ PROJECT_NAME = "Dart Vader"
 
 DATA_FILE = "data/reviews.csv"
 RAW_DATA_DIR = "data/raw"
+ANALYZED_DATA_FILE = "data/manual/analyzed_reviews.csv"
 
 TARGET_REVIEW_COUNT = 1000
 TEST_REVIEW_COUNT = 100
