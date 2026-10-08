@@ -53,6 +53,7 @@ ENGLISH_POSITIVE = {
     "polite": 2.0,
     "friendly": 2.0,
     "thank": 1.7,
+    "thank you": 1.7,
     "enjoy": 2.3,
     "enjoyed": 2.3,
     "exceeded": 2.4,
