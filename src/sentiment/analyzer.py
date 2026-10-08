@@ -44,6 +44,8 @@ def analyze_sentiment(text):
                 word_score += 0.1
             elif word_score < 0:
                 word_score -= 0.1
+        if has_contrast_before(tokens, index):
+            word_score *= 1.5
         total_score += word_score
         scored_words += 1
     if scored_words == 0:

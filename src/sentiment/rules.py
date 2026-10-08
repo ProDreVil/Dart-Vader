@@ -1,6 +1,6 @@
 import re
 
-from sentiment.lexicon import is_negation, get_booster
+from sentiment.lexicon import is_negation, get_booster, CONTRAST_WORDS
 
 def apply_negation(score):
     return -score
@@ -85,3 +85,9 @@ EMOJI_SCORES = {
 
 def get_emoji_score(emoji):
     return EMOJI_SCORES.get(emoji, 0.0)
+
+def has_contrast_before(tokens, index):
+    for position in range(index - 1, -1, -1):
+        if tokens[position].lower() in CONTRAST_WORDS:
+            return True
+    return False

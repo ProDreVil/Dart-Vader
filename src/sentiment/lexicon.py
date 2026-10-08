@@ -282,8 +282,17 @@ LEXICON = {
 
 
 # ============================================================
-# NEGATIONS
+# CONTRASTS & NEGATIONS
 # ============================================================
+
+CONTRAST_WORDS = {
+    "but",
+    "pero",
+    "however",
+    "kaso",
+    "though",
+    "although",
+}
 
 NEGATIONS = {
     "not",

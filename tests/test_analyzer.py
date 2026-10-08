@@ -27,6 +27,11 @@ TEST_REVIEWS = [
     "Call me high but this product is super bad",
     "sobrang ganda ng product",
     "sobrang ganda ng product pero baaad",
+    "maganda pero pangit",
+    "pangit pero maganda",
+    "good but bad",
+    "bad but good",
+    "okay pero hindi maganda",
 ]
 
 def main():
