@@ -59,7 +59,6 @@ def get_repeated_letter_booster(word):
 EMOJI_SCORES = {
     # POSITIVE
     "❤️": 2.5,
-    "❤": 2.5,
     "😍": 3.0,
     "🥰": 2.8,
     "😊": 2.0,
@@ -68,8 +67,34 @@ EMOJI_SCORES = {
     "👍": 2.0,
     "👏": 1.8,
     "✨": 1.5,
+    "⭐": 2.0,
+    "🌟": 2.2,
+    "💫": 1.8,
     "💖": 2.8,
     "💕": 2.5,
+    "💝": 2.6,
+    "🤍": 2.2,
+    "💛": 2.2,
+    "💚": 2.2,
+    "💙": 2.2,
+    "💜": 2.2,
+    "🖤": 1.5,
+    "❣": 2.0,
+    "😉": 1.5,
+    "😘": 2.5,
+    "👌": 1.8,
+    "💯": 2.5,
+    "☺": 1.8,
+    "🙂": 1.7,
+    "😀": 2.0,
+    "😃": 2.1,
+    "😋": 2.0,
+    "😇": 2.0,
+    "🫶": 2.5,
+    "🫰": 2.3,
+    "✔": 1.5,
+    "✅": 1.8,
+    "🎉": 2.2,
     #NEGATIVE
     "😡": -2.8,
     "😠": -2.5,
@@ -81,9 +106,29 @@ EMOJI_SCORES = {
     "💔": -2.8,
     "🤮": -3.0,
     "😤": -2.4,
+    "🤬": -3.2,
+    "😒": -2.0,
+    "😑": -1.5,
+    "🙄": -2.0,
+    "😓": -1.8,
 }
 
+def normalize_emoji(emoji):
+    heart_variants = {
+        "❤": "❤️",
+        "♥": "❤️",
+        "♥️": "❤️",
+    }
+    skin_tones = "🏻🏼🏽🏾🏿"
+    emoji = "".join(
+        character
+        for character in emoji
+        if character not in skin_tones
+    )
+    return heart_variants.get(emoji, emoji)
+
 def get_emoji_score(emoji):
+    emoji = normalize_emoji(emoji)
     return EMOJI_SCORES.get(emoji, 0.0)
 
 def has_contrast_before(tokens, index):

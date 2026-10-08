@@ -25,12 +25,12 @@ def filter_reviews(input_file, output_file):
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(reviews)
-    print("----------------------------------------")
+    print("-" * 40)
     print("Review filter complete.")
     print(f"Reviews checked: {len(reviews)}")
     print(f"Reviews changed: {changed_count}")
     print(f"Output: {output_file}")
 
 if __name__ == "__main__":
-    output_file = "data/reviews_cleaned.csv"
+    output_file = "data/cleanup/reviews_cleaned.csv"
     filter_reviews(DATA_FILE, output_file)

@@ -43,7 +43,7 @@ def run_importer():
             previous_clipboard = raw_text
             with open("data/raw/pasted_reviews.txt", "w", encoding="utf-8") as file:
                 file.write(raw_text)
-            print("----------------------------------------")
+            print("-" * 40)
             print("New clipboard content detected.")
             play_sfx()
             reviews = parse_reviews_from_text(raw_text)
