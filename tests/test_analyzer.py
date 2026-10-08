@@ -15,11 +15,14 @@ TEST_REVIEWS = [
     "GOOD!!!",
     "soooo good",
     "pangit 😡",
+    "good quality",
+    "super bad product",
+    "Call me high but this product is super bad",
 ]
 
 def main():
     print("=" * 60)
-    print("DART VADER - SENTIMENT ANALYZER TEST")
+    print("SENTIMENT ANALYZER TEST")
     print("=" * 60)
     for review in TEST_REVIEWS:
         result = analyze_sentiment(review)

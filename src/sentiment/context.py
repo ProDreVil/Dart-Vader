@@ -1,5 +1,3 @@
-from sentiment.lexicon import get_word_score
-
 ASPECT_WORDS = {
     "product",
     "item",
@@ -31,8 +29,8 @@ def has_relevant_context(tokens, index):
     return bool(get_context_words(tokens, index))
 
 def has_aspect_context(tokens, index):
-    start = max(0, index - 3)
-    end = min(len(tokens), index + 4)
+    start = max(0, index - 2)
+    end = min(len(tokens), index + 3)
     for position in range(start, end):
         if position == index:
             continue

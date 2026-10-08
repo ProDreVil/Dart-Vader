@@ -1,6 +1,7 @@
 from sentiment.tokenizer import tokenize
 from sentiment.lexicon import get_word_score
 from sentiment.rules import *
+from sentiment.context import analyze_context
 
 def analyze_sentiment(text):
     tokens = tokenize(text)
@@ -13,6 +14,7 @@ def analyze_sentiment(text):
     scored_words = 0
     for index, token in enumerate(tokens):
         normalized_token = normalize_repeated_letters(token)
+        context = analyze_context(tokens, index)
         word_score = get_word_score(normalized_token)
         if word_score == 0:
             emoji_score = get_emoji_score(token)
@@ -26,6 +28,11 @@ def analyze_sentiment(text):
         if booster != 0:
             word_score = apply_booster(word_score, booster)
         word_score = apply_capitalization(word_score, token)
+        if context["has_aspect"]:
+            if word_score > 0:
+                word_score += 0.1
+            elif word_score < 0:
+                word_score -= 0.1
         total_score += word_score
         scored_words += 1
     if scored_words == 0:
