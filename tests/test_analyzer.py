@@ -43,6 +43,16 @@ def main():
         print(f"\nReview: {review}")
         print(f"Score: {result['score']}")
         print(f"Sentiment: {result['sentiment']}")
+        print("\n" + "=" * 60)
+    print("INTERACTIVE TEST")
+    print("=" * 60)
+    while True:
+        review = input("\nEnter test review: ")
+        if review.lower() == "exit":
+            break
+        result = analyze_sentiment(review)
+        print(f"Score: {result['score']}")
+        print(f"Sentiment: {result['sentiment']}")
     print("\n" + "=" * 60)
 
 if __name__ == "__main__":
