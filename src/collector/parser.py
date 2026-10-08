@@ -6,6 +6,21 @@ def extract_product_name(lines):
             return line[len("Product image "):].strip()
     return ""
 
+FILTER_PATTERNS = [
+    r"seller['’]?s?\s+response\s*:.*$",
+    r"\bprofile\s+\S+.*$",
+    r"\bhelpful\?.*$",
+    r"\b[a-zA-Z]\*{3,}[a-zA-Z]\b.*$",
+    r"\.\.\.\s*\.\.\..*$",
+]
+
+def clean_review_text(review_text):
+    cleaned = review_text
+    for pattern in FILTER_PATTERNS:
+        cleaned = re.sub(pattern, "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    return cleaned
+
 def parse_reviews_from_text(text):
     reviews = []
     review_header_pattern = re.compile(r"^(\d{4}-\d{2}-\d{2})\s+\d{2}:\d{2}\s+\|\s+Variation:")
@@ -32,6 +47,11 @@ def parse_reviews_from_text(text):
         for current in lines[index + 1:]:
             if "From The Same Shop" in current:
                 break
+            if re.search(r"seller'?s response:", current, re.IGNORECASE):
+                current = re.split(r"seller'?s response:", current, maxsplit=1, flags=re.IGNORECASE)[0].strip()
+                if current:
+                    review_lines.append(current)
+                break
             if re.search(r"\bprofile\s+\S+", current, re.IGNORECASE):
                 current = re.split(r"\bprofile\b", current, maxsplit=1, flags=re.IGNORECASE)[0].strip()
                 if current:
@@ -52,7 +72,7 @@ def parse_reviews_from_text(text):
                 continue
             review_lines.append(current)
         review_text = " ".join(review_lines).strip()
-        review_text = re.sub(r"\s+", " ", review_text)
+        review_text = clean_review_text(review_text)
         if review_text:
             reviews.append({
                 "review_id": "",
