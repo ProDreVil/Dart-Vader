@@ -10,7 +10,7 @@ FILTER_PATTERNS = [
     r"seller['’]?s?\s+response\s*:.*$",
     r"\bprofile\s+\S+.*$",
     r"\bhelpful\?.*$",
-    r"\b[a-zA-Z]\*{3,}[a-zA-Z]\b.*$",
+    r"\b[a-zA-Z]\*{3,}[a-zA-Z0-9]\b.*$",
     r"\.\.\.\s*\.\.\..*$",
 ]
 
