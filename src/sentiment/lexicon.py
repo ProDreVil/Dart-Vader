@@ -67,7 +67,7 @@ ENGLISH_POSITIVE = {
 # ============================================================
 
 TAGALOG_POSITIVE = {
-    "bangis": -2.0,
+    "bangis": 2.0,
     "maganda": 2.6,
     "ganda": 2.4,
     "sulit": 2.8,
