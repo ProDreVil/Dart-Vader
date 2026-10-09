@@ -16,6 +16,8 @@ FILTER_PATTERNS = [
 ]
 
 def clean_review_text(review_text):
+    if not isinstance(review_text, str):
+        raise TypeError(f"clean_review_text expected str, got {type(review_text).__name__}: {review_text!r}")
     cleaned = review_text
     for pattern in FILTER_PATTERNS:
         cleaned = re.sub(pattern, "", cleaned, flags=re.IGNORECASE)
