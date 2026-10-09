@@ -137,6 +137,9 @@ TAGALOG_POSITIVE = {
 # ============================================================
 
 ENGLISH_NEGATIVE = {
+    "best": -2.0,
+    "notinterested": -3.0,
+    "hussle": -2.0,
     "idiot": -1.9,
     "dambass": -2.0,
     "bitch": -2.0,
@@ -204,6 +207,9 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
+    "hindiswak": -2.9,
+    "anaknang": -1.9,
+    "nakakasira": -2.0,
     "kingina": -3.0,
     "tangina": -3.0,
     "putangina": -3.0,
