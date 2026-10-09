@@ -81,6 +81,9 @@ def get_modifier_sentiment(tokens, index):
     if index + 1 >= len(tokens):
         return 0.0
     attribute = tokens[index + 1].lower()
-    if attribute in {"malaki", "mahal", "mabigat", "mataas", "makapal", "mabilis"}:
+    if attribute in {
+        "malaki", "mahal", "mabigat", "mataas", "makapal",
+        "mabilis", "manipis", "maliit", "matigas", "maluwag",
+    }:
         return -2.0
     return 0.0

@@ -3,21 +3,24 @@
 # ============================================================
 
 ENGLISH_POSITIVE = {
+    "safe": 1.6,
     "damn": 2.5,
     "good": 2.5,
     "extraordinary": 3.3,
     "great": 3.1,
+    "simple": 1.7,
     "excellent": 3.4,
     "amazing": 3.2,
     "love": 3.2,
     "nice": 1.8,
-    "best": 3.2,
+    "best": 3.4,
     "perfect": 3.3,
     "worth": 2.0,
     "useful": 3.0,
     "cool": 2.0,
     "recommend": 2.2,
     "recommended": 2.2,
+    "high quality": 2.8,
     "top-notch": 3.0,
     "fast": 1.6,
     "happy": 2.7,
@@ -42,6 +45,8 @@ ENGLISH_POSITIVE = {
     "brilliant": 3.0,
     "pleased": 2.4,
     "thanks": 1.7,
+    "thank you": 1.7,
+    "thankful": 1.9,
     "favorite": 2.5,
     "cute": 2.0,
     "lovely": 2.8,
@@ -58,8 +63,6 @@ ENGLISH_POSITIVE = {
     "quick": 1.6,
     "polite": 2.0,
     "friendly": 2.0,
-    "thank": 1.7,
-    "thank you": 1.7,
     "enjoy": 2.3,
     "enjoyed": 2.3,
     "exceeded": 2.4,
@@ -67,6 +70,11 @@ ENGLISH_POSITIVE = {
     "flawless": 3.2,
     "outstanding": 3.3,
     "bargain": 2.0,
+    "perform": 2.0,
+    "easy": 1.8,
+    "easily": 1.6,
+    "accurately": 1.6,
+    "comfortable": 2.1,
 }
 
 # ============================================================
@@ -74,12 +82,14 @@ ENGLISH_POSITIVE = {
 # ============================================================
 
 TAGALOG_POSITIVE = {
+    "pwede na": 1.7,
     "bangis": 2.0,
     "maganda": 2.6,
     "bagay": 2.2,
     "ganda": 2.4,
     "sulit": 2.8,
     "magaan": 1.0,
+    "gumana": 2.3,
     "astig": 2.5,
     "mabilis": 1.8,
     "maayos": 2.0,
@@ -137,6 +147,8 @@ TAGALOG_POSITIVE = {
 # ============================================================
 
 ENGLISH_NEGATIVE = {
+    "not interested": -1.5,
+    "hassle": -2.0,
     "idiot": -1.9,
     "dambass": -2.0,
     "bitch": -2.0,
@@ -204,6 +216,8 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
+    "anak ng": -1.9,
+    "nakakasira": -2.0,
     "kingina": -3.0,
     "tangina": -3.0,
     "putangina": -3.0,
@@ -295,7 +309,6 @@ LEXICON = {
     **NEUTRAL_WORDS,
 }
 
-
 # ============================================================
 # CONTRASTS & NEGATIONS
 # ============================================================
@@ -361,7 +374,6 @@ def is_negation(word):
 
 def get_booster(word):
     return BOOSTERS.get(word.lower(), 0)
-
 
 def levenshtein_distance(first, second):
     first = first.lower()
