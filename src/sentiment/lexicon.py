@@ -3,15 +3,17 @@
 # ============================================================
 
 ENGLISH_POSITIVE = { 
-    "looks good": 2.2,
-    "okay for the price": 1.2, 
-    "match my expectations": 2.5,
-    "as advertised": 2.0,
-    "what you see is what you get": 2.5,
+    "matched my expectations": 2.5,
+    "met my expectations": 2.5,
+    "as shown": 2.5,
+    "same with the photo": 2.5,
+    # "as advertised": 2.0,
+    # "what you see is what you get": 2.5,
+    "as described": 2.5,
     "well pack": 2.0,
     "well packed": 2.0,
-    "i like it": 2.0,
-    "true to size": 2.5,
+    "real": 2.0,
+    "true": 2.0,
     "safe": 1.6,
     "damn": 2.5,
     "good": 2.5,
@@ -98,14 +100,7 @@ ENGLISH_POSITIVE = {
 # ============================================================
 
 TAGALOG_POSITIVE = {
-    "pwede na": 0.8,
-    "simple lang": 0.5,
-    "ok lang": 0.5,
-    "okay lang": 0.5,
-    "ok naman": 1.0,
-    "okay naman": 1.0,
-    "lubos na inirerekomenda": 3.0,
-    "totoo sa laki": 2.5,
+    "totoo": 2.0,
     "pwede na": 1.7,
     "bangis": 2.0,
     "maganda": 2.6,
@@ -125,6 +120,8 @@ TAGALOG_POSITIVE = {
     "mura": 1.4,
     "solid": 2.4,
     "ayos": 1.8,
+    "bili": 1.2,
+    "bumili": 1.2,
     "bongga": 2.6,
     "mabango": 1.8,
     "malinis": 1.9,
@@ -178,13 +175,7 @@ TAGALOG_POSITIVE = {
 # ============================================================
 
 ENGLISH_NEGATIVE = {
-    "not as described": -2.8,
-    "not as shown": -2.5,
-    "not same with the photo": -2.5,
-    "not true to size": -2.0,
     "expectation vs reality": -2.0,
-    "not so ok": -1.5,
-    "not interested": -1.5,
     "hassle": -2.0,
     "idiot": -1.9,
     "dambass": -2.0,
@@ -356,6 +347,7 @@ NEUTRAL_WORDS = {
     "okay": 0.2,
     "ok": 0.2,
     "refund": 0.0,
+    "kayo": 0.0,
 }
 
 OK_PHRASES = {
@@ -429,9 +421,14 @@ NEGATIONS = {
     "wont",
     #TAGALOG
     "hindi",
+    "hnd",
     "di",
     "wala",
     "ayaw",
+    "wag",
+    "wag na",
+    "huwag",
+    "huwag na",
 }
 
 # ============================================================
@@ -439,8 +436,10 @@ NEGATIONS = {
 # ============================================================
 
 BOOSTERS = {
+    # ENGLISH
     "very": 0.3,
     "super": 0.3,
+    # TAGALOG
     "sobra": 0.3,
     "sobrang": 0.3,
     "talaga": 0.3,
