@@ -4,7 +4,7 @@ import msvcrt
 import winsound
 import base64
 
-from config import PROJECT_NAME, DATA_FILE, RAW_DATA_DIR
+from utils.config import PROJECT_NAME, DATA_FILE, RAW_DATA_DIR
 from collector.parser import parse_reviews_from_text
 from collector.storage import save_reviews
 

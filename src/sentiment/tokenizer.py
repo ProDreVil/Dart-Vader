@@ -1,4 +1,5 @@
 import re
 
 def tokenize(text):
-    return re.findall(r"\w+|[!?.,;:]|[^\w\s]", text)
+    text = re.sub(r"(?<=\w)['’](?=\w)", "", text)
+    return re.findall(r"\w+(?:-\w+)*|[!?.,;:]|[^\w\s]", text)

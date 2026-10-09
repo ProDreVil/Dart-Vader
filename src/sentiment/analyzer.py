@@ -1,7 +1,9 @@
+import re
+
 from sentiment.tokenizer import tokenize
 from sentiment.lexicon import get_word_score, find_closest_word, get_booster
 from sentiment.rules import *
-from sentiment.context import analyze_context
+from sentiment.context import analyze_context, get_modifier_sentiment
 
 def analyze_sentiment(text):
     tokens = tokenize(text)
@@ -12,6 +14,20 @@ def analyze_sentiment(text):
         }
     total_score = 0.0
     scored_words = 0
+    for index, token in enumerate(tokens):
+        modifier_score = get_modifier_sentiment(tokens, index)
+        if modifier_score != 0:
+            total_score += modifier_score
+            scored_words += 1
+    ratings = re.findall(r"\b(\d{1,2})\s*/\s*10\b", text)
+    for rating_text in ratings:
+        rating = int(rating_text)
+        if not 0 <= rating <= 10:
+            continue
+        rating_score = (rating - 5) * 0.6
+        if rating_score != 0:
+            total_score += rating_score
+            scored_words += 1
     for index, token in enumerate(tokens):
         normalized_token = normalize_repeated_letters(token)
         context = analyze_context(tokens, index)

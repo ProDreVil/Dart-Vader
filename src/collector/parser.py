@@ -10,8 +10,9 @@ FILTER_PATTERNS = [
     r"seller['’]?s?\s+response\s*:.*$",
     r"\bprofile\s+\S+.*$",
     r"\bhelpful\?.*$",
-    r"\b[a-zA-Z]\*{3,}[a-zA-Z0-9]\b.*$",
+    r"\b[a-zA-Z0-9]\*{3,}[a-zA-Z0-9]\b.*$",
     r"\.\.\.\s*\.\.\..*$",
+    r"\.{2,}\s*you may also like\b.*$",
 ]
 
 def clean_review_text(review_text):

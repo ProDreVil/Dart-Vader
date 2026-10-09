@@ -1,4 +1,6 @@
+
 ASPECT_WORDS = {
+    # English
     "product",
     "item",
     "quality",
@@ -11,6 +13,33 @@ ASPECT_WORDS = {
     "packaging",
     "seller",
     "service",
+    "price",
+    "material",
+    "color",
+    "colour",
+    "shipping",
+    "order",
+    "parcel",
+    "package",
+    # Tagalog
+    "produkto",
+    "gamit",
+    "kalidad",
+    "lasa",
+    "sukat",
+    "itsura",
+    "hitsura",
+    "pagkakabalot",
+    "balot",
+    "tinda",
+    "tindero",
+    "tindera",
+    "nagbebenta",
+    "serbisyo",
+    "presyo",
+    "kulay",
+    "materyales",
+    "pagpapadala",
 }
 
 def find_context(tokens, index):
@@ -43,3 +72,15 @@ def analyze_context(tokens, index):
         "nearby_words": get_context_words(tokens, index),
         "has_aspect": has_aspect_context(tokens, index),
     }
+
+NEGATIVE_MODIFIERS = {"masyado", "masyadong"}
+
+def get_modifier_sentiment(tokens, index):
+    if tokens[index].lower() not in NEGATIVE_MODIFIERS:
+        return 0.0
+    if index + 1 >= len(tokens):
+        return 0.0
+    attribute = tokens[index + 1].lower()
+    if attribute in {"malaki", "mahal", "mabigat", "mataas", "makapal", "mabilis"}:
+        return -2.0
+    return 0.0

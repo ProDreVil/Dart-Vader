@@ -3,8 +3,9 @@
 # ============================================================
 
 ENGLISH_POSITIVE = {
-    "damn": 2.0,
-    "good": 1.9,
+    "damn": 2.5,
+    "good": 2.5,
+    "extraordinary": 3.3,
     "great": 3.1,
     "excellent": 3.4,
     "amazing": 3.2,
@@ -14,8 +15,10 @@ ENGLISH_POSITIVE = {
     "perfect": 3.3,
     "worth": 2.0,
     "useful": 3.0,
+    "cool": 2.0,
     "recommend": 2.2,
     "recommended": 2.2,
+    "top-notch": 3.0,
     "fast": 1.6,
     "happy": 2.7,
     "satisfied": 2.3,
@@ -72,6 +75,7 @@ ENGLISH_POSITIVE = {
 TAGALOG_POSITIVE = {
     "bangis": 2.0,
     "maganda": 2.6,
+    "bagay": 2.2,
     "ganda": 2.4,
     "sulit": 2.8,
     "astig": 2.5,
@@ -198,9 +202,10 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
-    "kingina": -2.5,
+    "kingina": -3.0,
     "tangina": -3.0,
     "putangina": -3.0,
+    "balahura": -2.5,
     "gasgas": -2.0,
     "langya": -1.9,
     "awit": -2.0,
@@ -210,6 +215,7 @@ TAGALOG_NEGATIVE = {
     "panget": -2.8,
     "sira": -2.7,
     "basag": -2.6,
+    "kupas": -2.0,
     "peke": -3.0,
     "tagal": -1.8,
     "mabagal": -1.8,
@@ -258,6 +264,10 @@ TAGALOG_NEGATIVE = {
     "magulo": -2.0,
     "sirang": -2.7,
     "nadaya": -3.0,
+    "wasak": -2.7,
+    "medyo": -0.25,
+    "masyado": -0.5,
+    "masyadong": -0.5,
 }
 
 # ============================================================
@@ -297,9 +307,26 @@ CONTRAST_WORDS = {
 }
 
 NEGATIONS = {
+    #ENGLISH
     "not",
     "no",
     "never",
+    "ain't",
+    "aint",
+    "isn't",
+    "isnt",
+    "don't",
+    "dont",
+    "doesn't",
+    "doesnt",
+    "didn't",
+    "didnt",
+    "can't",
+    "cant",
+    "cannot",
+    "won't",
+    "wont",
+    #TAGALOG
     "hindi",
     "di",
     "wala",
@@ -317,8 +344,11 @@ BOOSTERS = {
     "sobrang": 0.3,
     "talaga": 0.3,
     "grabe": 0.3,
-    "medyo": -0.3,
 }
+
+# ============================================================
+# FUNCTIONS
+# ============================================================
 
 def get_word_score(word):
     return LEXICON.get(word.lower(), 0)
