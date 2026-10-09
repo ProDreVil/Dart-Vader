@@ -14,6 +14,12 @@ def filter_reviews(input_file, output_file):
     with open(input_file, "r", newline="", encoding="utf-8-sig") as file:
         reviews = list(csv.DictReader(file))
     changed_count = 0
+    renumbered_count = 0
+    for index, review in enumerate(reviews, start=1):
+        new_id = f"review-{index}"
+        if review.get("review_id") != new_id:
+            review["review_id"] = new_id
+            renumbered_count += 1
     for review in reviews:
         original = review["review_text"]
         cleaned = clean_review_text(original)
@@ -29,6 +35,7 @@ def filter_reviews(input_file, output_file):
     print("Review filter complete.")
     print(f"Reviews checked: {len(reviews)}")
     print(f"Reviews changed: {changed_count}")
+    print(f"Review IDs renumbered: {renumbered_count}")
     print(f"Output: {output_file}")
 
 if __name__ == "__main__":

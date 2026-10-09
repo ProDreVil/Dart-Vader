@@ -1,7 +1,7 @@
 import re
 
 from sentiment.tokenizer import tokenize
-from sentiment.lexicon import LEXICON, get_word_score, find_closest_word, get_booster
+from sentiment.lexicon import LEXICON, get_word_score, find_closest_word, get_booster, levenshtein_distance
 from sentiment.rules import *
 from sentiment.context import analyze_context, get_modifier_sentiment
 
@@ -38,7 +38,15 @@ def analyze_sentiment(text):
                 normalize_repeated_letters(token).lower()
                 for token in tokens[index:index + phrase_length]
             ]
-            if candidate == phrase_tokens:
+            if len(candidate) == len(phrase_tokens) and all(
+                token == phrase_token
+                or (
+                    len(token) >= 4
+                    and levenshtein_distance(token, phrase_token)
+                    <= max(1, len(token) // 4)
+                )
+                for token, phrase_token in zip(candidate, phrase_tokens)
+            ):
                 phrase_matches[index] = phrase_score
                 skip_tokens.update(range(index + 1, index + phrase_length))
     for index, token in enumerate(tokens):

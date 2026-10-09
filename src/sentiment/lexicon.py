@@ -29,11 +29,15 @@ ENGLISH_POSITIVE = {
     "like": 2.0,
     "awesome": 3.1,
     "fantastic": 3.3,
+    "clean": 2.4,
+    "fresh": 2.4,
+    "reliable": 2.5,
     "wonderful": 3.0,
     "superb": 3.3,
     "impressive": 2.5,
     "durable": 2.2,
     "comfortable": 2.1,
+    "comfy": 2.0,
     "affordable": 1.6,
     "satisfying": 2.3,
     "satisfaction": 2.3,
@@ -74,7 +78,10 @@ ENGLISH_POSITIVE = {
     "easy": 1.8,
     "easily": 1.6,
     "accurately": 1.6,
-    "comfortable": 2.1,
+    "delighted": 2.5,
+    "approachable": 1.8,
+    "vibrant": 1.8,
+    "will buy again": 2.4,
 }
 
 # ============================================================
@@ -94,6 +101,7 @@ TAGALOG_POSITIVE = {
     "mabilis": 1.8,
     "maayos": 2.0,
     "salamat": 1.9,
+    "goods": 2.0,
     "gusto": 1.8,
     "swak": 2.0,
     "matibay": 2.2,
@@ -112,6 +120,7 @@ TAGALOG_POSITIVE = {
     "hanep": 2.6,
     "nagustuhan": 2.2,
     "mahusay": 2.4,
+    "napakahusay": 2.4,
     "komportable": 2.0,
     "mabisa": 2.0,
     "napakaganda": 3.0,
@@ -130,7 +139,7 @@ TAGALOG_POSITIVE = {
     "kuntento": 2.3,
     "nasiyahan": 2.4,
     "natuwa": 2.4,
-    "malambot": 1.5,
+    "malambot": 1.0,
     "makinis": 1.8,
     "makulay": 1.6,
     "maasikaso": 2.2,
@@ -140,6 +149,11 @@ TAGALOG_POSITIVE = {
     "mapagkakatiwalaan": 2.0,
     "napakaayos": 2.8,
     "maligaya": 2.4,
+    "inirerekomenda": 2.4,
+    "rekomendado": 2.4,
+    "pantay": 1.8,
+    "kasya": 1.8,
+    "makapal": 1.8,
 }
 
 # ============================================================
@@ -163,17 +177,21 @@ ENGLISH_NEGATIVE = {
     "damaged": -2.8,
     "late": -1.6,
     "slow": -1.6,
-    "disappointed": -2.7,
+    "disappoint": -2.5,
+    "disappointed": -2.5,
+    "disappointing": -2.5,
     "waste": -2.5,
     "scam": -3.5,
     "defective": -2.9,
     "wrong": -2.0,
     "missing": -1.8,
+    "incomplete": -1.8,
     "useless": -2.8,
     "horrible": -3.2,
     "awful": -3.2,
     "disgusting": -3.0,
     "annoying": -2.2,
+    "stiff": -1.5,
     "rude": -2.3,
     "dirty": -2.3,
     "cracked": -2.5,
@@ -192,7 +210,6 @@ ENGLISH_NEGATIVE = {
     "ugly": -2.5,
     "flimsy": -2.3,
     "mediocre": -1.8,
-    "disappointing": -2.7,
     "unacceptable": -2.8,
     "unprofessional": -2.5,
     "pathetic": -3.0,
@@ -209,6 +226,12 @@ ENGLISH_NEGATIVE = {
     "malfunction": -2.6,
     "frustrating": -2.5,
     "worthless": -3.0,
+    "undelivered": -2.8,
+    "mismatch": -1.8,
+    "unfortunate": -1.2,
+    "unfortunately": -1.2,
+    "thin": -1.0,
+    "did not received": -2.2,
 }
 
 # ============================================================
@@ -216,13 +239,18 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
+    "dugyot": -1.9,
+    "peste": -2.0,
+    "animal": -2.2,
     "anak ng": -1.9,
     "nakakasira": -2.0,
     "kingina": -3.0,
     "tangina": -3.0,
     "putangina": -3.0,
     "balahura": -2.5,
+    "karmahin": -1.5,
     "gasgas": -2.0,
+    "durog": -2.0,
     "langya": -1.9,
     "ewan": -1.4,
     "awit": -2.0,
@@ -236,9 +264,11 @@ TAGALOG_NEGATIVE = {
     "peke": -3.0,
     "tagal": -1.8,
     "mabagal": -1.8,
+    "boyset": -2.0,
     "dismaya": -2.5,
     "sayang": -2.0,
     "bulok": -3.0,
+    "budol": -2.9,
     "palpak": -2.8,
     "kulang": -1.8,
     "madumi": -2.3,
@@ -254,6 +284,7 @@ TAGALOG_NEGATIVE = {
     "gasgas": -2.0,
     "punit": -2.2,
     "mali": -2.0,
+    "nagkamali": -2.0,
     "nakakainis": -2.4,
     "badtrip": -2.5,
     "bastos": -2.5,
@@ -282,9 +313,16 @@ TAGALOG_NEGATIVE = {
     "sirang": -2.7,
     "nadaya": -3.0,
     "wasak": -2.7,
+    "manipis": -1.0,
+    "nipis": -1.0,
     "medyo": -0.25,
     "masyado": -0.5,
     "masyadong": -0.5,
+    "hindi dineliver": -2.2,
+    "walang kwenta": -2.5,
+    "gabaan": -2.0,
+    "liit": -1.0,
+    "layo": -1.5,
 }
 
 # ============================================================
@@ -292,9 +330,32 @@ TAGALOG_NEGATIVE = {
 # ============================================================
 
 NEUTRAL_WORDS = {
-    "okay": 0.0,
-    "ok": 0.0,
+    "okay": 0.2,
+    "ok": 0.2,
     "refund": 0.0,
+}
+
+OK_PHRASES = {
+    # Mildly positive
+    "ok naman": 1.0,
+    "okay naman": 1.0,
+    "okay na": 0.8,
+    "ok na": 0.8,
+    "okay for the price": 1.0,
+    "ok for the price": 1.0,
+    # Midly negative
+    "not ok": -1.0,
+    "not okay": -1.0,
+    "not so ok": -1.2,
+    "not so okay": -1.2,
+    "ok na sana": -0.3,
+    "okay na sana": -0.3,
+    "ok lang": 0.2,
+    "okay lang": 0.2,
+    "okay lang naman": 0.3,
+    "okay naman": 0.3,
+    "ok lang naman": 0.3,
+    "sana okay": 0.0,
 }
 
 # ============================================================
@@ -307,6 +368,7 @@ LEXICON = {
     **ENGLISH_NEGATIVE,
     **TAGALOG_NEGATIVE,
     **NEUTRAL_WORDS,
+    **OK_PHRASES,
 }
 
 # ============================================================
@@ -398,11 +460,20 @@ def find_closest_word(word):
     best_match = None
     best_distance = float("inf")
     for lexicon_word in LEXICON:
+        if " " in lexicon_word:
+            continue
         distance = levenshtein_distance(word, lexicon_word)
         if distance < best_distance:
             best_distance = distance
             best_match = lexicon_word
     max_distance = max(1, len(word) // 4)
-    if best_distance <= max_distance:
+    if best_match is not None and best_distance <= max_distance:
         return best_match, best_distance
     return None, best_distance
+
+
+def correct_token(word):
+    closest_word, distance = find_closest_word(word)
+    if closest_word is not None:
+        return closest_word
+    return word.lower()
