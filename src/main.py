@@ -1,5 +1,5 @@
 from evaluation.evaluator import analyze_and_save
-from config import DATA_FILE, ANALYZED_DATA_FILE
+from utils.config import DATA_FILE, ANALYZED_DATA_FILE
 
 # DI NA DITO YUNG PAGKUHA NG REVIEWS, CHECK `import.py`
 # DITO MUNA YUNG ANALYSIS

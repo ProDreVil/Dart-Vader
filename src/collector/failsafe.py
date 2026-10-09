@@ -4,7 +4,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from config import DATA_FILE
+from utils.config import DATA_FILE
 from collector.parser import clean_review_text
 
 def filter_reviews(input_file, output_file):
