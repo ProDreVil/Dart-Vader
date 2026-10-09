@@ -1,7 +1,7 @@
 import re
 
 from sentiment.tokenizer import tokenize
-from sentiment.lexicon import get_word_score, find_closest_word, get_booster
+from sentiment.lexicon import LEXICON, get_word_score, find_closest_word, get_booster
 from sentiment.rules import *
 from sentiment.context import analyze_context, get_modifier_sentiment
 
@@ -28,10 +28,25 @@ def analyze_sentiment(text):
         if rating_score != 0:
             total_score += rating_score
             scored_words += 1
+    phrase_matches = {}
+    skip_tokens = set()
+    for phrase, phrase_score in LEXICON.items():
+        phrase_tokens = phrase.split()
+        phrase_length = len(phrase_tokens)
+        for index in range(len(tokens) - phrase_length + 1):
+            candidate = [
+                normalize_repeated_letters(token).lower()
+                for token in tokens[index:index + phrase_length]
+            ]
+            if candidate == phrase_tokens:
+                phrase_matches[index] = phrase_score
+                skip_tokens.update(range(index + 1, index + phrase_length))
     for index, token in enumerate(tokens):
+        if index in skip_tokens:
+            continue
         normalized_token = normalize_repeated_letters(token)
         context = analyze_context(tokens, index)
-        word_score = get_word_score(normalized_token)
+        word_score = phrase_matches.get(index, get_word_score(normalized_token))
         if word_score == 0 and get_booster(token) == 0:
             closest_word, distance = find_closest_word(normalized_token)
             if closest_word is not None:
@@ -54,7 +69,7 @@ def analyze_sentiment(text):
                 booster += repeated_booster
         if booster != 0:
             word_score = apply_booster(word_score, booster)
-            word_score = apply_capitalization(word_score, token)
+        word_score = apply_capitalization(word_score, token)
         if context["has_aspect"]:
             if word_score > 0:
                 word_score += 0.1

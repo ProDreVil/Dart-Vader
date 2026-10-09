@@ -14,8 +14,11 @@ def apply_booster(score, booster):
 
 def has_negation(tokens, index, window=3):
     start = max(0, index - window)
-    for position in range(start, index):
-        if is_negation(tokens[position]):
+    for position in range(index - 1, start - 1, -1):
+        word = tokens[position].lower()
+        if word in CONTRAST_WORDS:
+            break
+        if is_negation(word):
             return True
     return False
 

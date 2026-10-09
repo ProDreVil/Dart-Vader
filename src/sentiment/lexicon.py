@@ -11,13 +11,14 @@ ENGLISH_POSITIVE = {
     "amazing": 3.2,
     "love": 3.2,
     "nice": 1.8,
-    "best": 3.2,
+    "best": 3.4,
     "perfect": 3.3,
     "worth": 2.0,
     "useful": 3.0,
     "cool": 2.0,
     "recommend": 2.2,
     "recommended": 2.2,
+    "high quality": 2.8,
     "top-notch": 3.0,
     "fast": 1.6,
     "happy": 2.7,
@@ -67,6 +68,11 @@ ENGLISH_POSITIVE = {
     "flawless": 3.2,
     "outstanding": 3.3,
     "bargain": 2.0,
+    "perform": 2.0,
+    "easy": 1.8,
+    "easily": 1.6,
+    "accurately": 1.6,
+    "comfortable": 2.1,
 }
 
 # ============================================================
@@ -80,6 +86,7 @@ TAGALOG_POSITIVE = {
     "ganda": 2.4,
     "sulit": 2.8,
     "magaan": 1.0,
+    "gumana": 2.3,
     "astig": 2.5,
     "mabilis": 1.8,
     "maayos": 2.0,
@@ -295,7 +302,6 @@ LEXICON = {
     **NEUTRAL_WORDS,
 }
 
-
 # ============================================================
 # CONTRASTS & NEGATIONS
 # ============================================================
@@ -361,7 +367,6 @@ def is_negation(word):
 
 def get_booster(word):
     return BOOSTERS.get(word.lower(), 0)
-
 
 def levenshtein_distance(first, second):
     first = first.lower()
