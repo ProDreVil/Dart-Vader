@@ -460,6 +460,11 @@ BOOSTERS = {
     "deeply": 0.3,
     "awfully": 0.3,
     "ultra": 0.3,
+    "amazingly": 0.3,
+    "unbelievably": 0.4,
+    "terribly": 0.3,
+    "hugely": 0.3,
+    "intensely": 0.3,
     # TAGALOG
     "sobra": 0.3,
     "sobrang": 0.3,
@@ -483,6 +488,10 @@ BOOSTERS = {
     "lubusan": 0.4,
     "lubusang": 0.4,
     "totoong": 0.3,
+    "matindi": 0.3,
+    "matinding": 0.3,
+    "sadya": 0.3,
+    "malaking": 0.2,
 }
 
 # ============================================================
