@@ -12,10 +12,11 @@ ENGLISH_POSITIVE = {
     "as described": 2.5,
     "well pack": 2.0,
     "well packed": 2.0,
-    "real": 2.0,
-    "true": 2.0,
+    "is real": 2.0,
+    "is true": 2.0,
+    "its real": 2.0,
+    "its true": 2.0,
     "safe": 1.6,
-    "damn": 2.5,
     "good": 2.5,
     "extraordinary": 3.3,
     "great": 3.1,
@@ -37,12 +38,11 @@ ENGLISH_POSITIVE = {
     "happy": 2.7,
     "satisfied": 2.3,
     "legit": 2.0,
-    "like": 2.0,
+    "like it": 2.0,
     "awesome": 3.1,
     "fantastic": 3.3,
     "clean": 2.4,
     "fresh": 2.4,
-    "reliable": 2.5,
     "wonderful": 3.0,
     "superb": 3.3,
     "impressive": 2.5,
@@ -72,7 +72,7 @@ ENGLISH_POSITIVE = {
     "stylish": 2.2,
     "smooth": 1.6,
     "soft": 1.5,
-    "reliable": 2.2,
+    "reliable": 2.3,
     "accurate": 1.6,
     "neat": 1.7,
     "quick": 1.6,
@@ -85,7 +85,7 @@ ENGLISH_POSITIVE = {
     "flawless": 3.2,
     "outstanding": 3.3,
     "bargain": 2.0,
-    "perform": 2.0,
+    "performs well": 2.0,
     "easy": 1.8,
     "easily": 1.6,
     "accurately": 1.6,
@@ -96,7 +96,7 @@ ENGLISH_POSITIVE = {
 }
 
 # ============================================================
-# TAGALOG / FILIPINO POSITIVE WORDS
+# TAGALOG POSITIVE WORDS
 # ============================================================
 
 TAGALOG_POSITIVE = {
@@ -120,8 +120,8 @@ TAGALOG_POSITIVE = {
     "mura": 1.4,
     "solid": 2.4,
     "ayos": 1.8,
-    "bili": 1.2,
-    "bumili": 1.2,
+    "bumili na kayo": 1.2,
+    "bumili kayo": 1.2,
     "bongga": 2.6,
     "mabango": 1.8,
     "malinis": 1.9,
@@ -203,6 +203,7 @@ ENGLISH_NEGATIVE = {
     "useless": -2.8,
     "horrible": -3.2,
     "awful": -3.2,
+    "expensive": -1.5,
     "disgusting": -3.0,
     "annoying": -2.2,
     "stiff": -1.5,
@@ -249,7 +250,7 @@ ENGLISH_NEGATIVE = {
 }
 
 # ============================================================
-# TAGALOG / FILIPINO NEGATIVE WORDS
+# TAGALOG NEGATIVE WORDS
 # ============================================================
 
 TAGALOG_NEGATIVE = {
@@ -295,7 +296,6 @@ TAGALOG_NEGATIVE = {
     "sablay": -2.5,
     "pabaya": -2.4,
     "mabaho": -2.5,
-    "gasgas": -2.0,
     "punit": -2.2,
     "mali": -2.0,
     "nagkamali": -2.0,
@@ -324,14 +324,12 @@ TAGALOG_NEGATIVE = {
     "mahina": -1.8,
     "malabo": -1.8,
     "magulo": -2.0,
+    "ang mahal": -1.5,
     "sirang": -2.7,
     "nadaya": -3.0,
     "wasak": -2.7,
     "manipis": -1.0,
     "nipis": -1.0,
-    "medyo": -0.25,
-    "masyado": -0.5,
-    "masyadong": -0.5,
     "hindi dineliver": -2.2,
     "walang kwenta": -2.5,
     "gabaan": -2.0,
@@ -368,7 +366,6 @@ OK_PHRASES = {
     "ok lang": 0.2,
     "okay lang": 0.2,
     "okay lang naman": 0.3,
-    "okay naman": 0.3,
     "ok lang naman": 0.3,
     "sana okay": 0.0,
 }
@@ -462,8 +459,8 @@ BOOSTERS = {
     "ultra": 0.3,
     "amazingly": 0.3,
     "unbelievably": 0.4,
-    "terribly": 0.3,
     "hugely": 0.3,
+    "damn": 0.5,
     "intensely": 0.3,
     # TAGALOG
     "sobra": 0.3,
@@ -471,6 +468,7 @@ BOOSTERS = {
     "talaga": 0.3,
     "grabe": 0.3,
     "napaka": 0.3,
+    "medyo": 0.15,
     "masyado": 0.3,
     "masyadong": 0.3,
     "talagang": 0.3,
