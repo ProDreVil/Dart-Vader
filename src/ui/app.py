@@ -1,28 +1,19 @@
-
 import os
 import sys
-import random
-import csv
 import tkinter as tk
-from tkinter import messagebox
-from PIL import Image, ImageTk
 
 SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_DIR = os.path.dirname(SRC_DIR)
-MOOD_IMAGE_DIR = os.path.join(PROJECT_DIR, "resources", "images", "mood")
-MOOD_IMAGE_SIZE = (160, 160)
 
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 from dartboard import Dartboard
+from review import ReviewDisplayMixin
+from controls import ControlsMixin
 from utils.themes import THEME, FONTS
-from utils.config import PROJECT_NAME, DATA_FILE, ANALYZED_DATA_FILE
-from evaluation.evaluator import analyze_and_save
-from sentiment.analyzer import analyze_sentiment
+from utils.config import PROJECT_NAME
 
-
-class DartVaderApp:
+class DartVaderApp(ReviewDisplayMixin, ControlsMixin):
     def __init__(self, root):
         self.root = root
         self.root.title(PROJECT_NAME)
@@ -221,71 +212,7 @@ class DartVaderApp:
         )
         controls_section.grid_columnconfigure(0, weight=1)
         controls_section.grid_columnconfigure(1, weight=1)
-
-        button_style = {
-            "font": FONTS["button"],
-            "bg": THEME["accent"],
-            "fg": THEME["button_text"],
-            "activebackground": THEME["accent_hover"],
-            "activeforeground": THEME["button_text"],
-            "relief": "flat",
-            "cursor": "hand2",
-            "pady": 9,
-        }
-
-        self.roll_button = tk.Button(
-            controls_section,
-            text="Roll a Review",
-            command=self.roll_review,
-            **button_style,
-        )
-        self.roll_button.grid(
-            row=0, column=0, sticky="ew", padx=(0, 5), pady=5
-        )
-
-        self.start_analysis_button = tk.Button(
-            controls_section,
-            text="Start Analysis",
-            command=self.start_analysis,
-            **button_style,
-        )
-        self.start_analysis_button.grid(
-            row=0, column=1, sticky="ew", padx=(5, 0), pady=5
-        )
-
-        self.custom_review_entry = tk.Entry(
-            controls_section,
-            font=FONTS["body"],
-            bg=THEME["bg"],
-            fg=THEME["text"],
-            insertbackground=THEME["text"],
-            relief="flat",
-        )
-        self.custom_review_entry.grid(
-            row=1,
-            column=0,
-            sticky="ew",
-            padx=(0, 5),
-            pady=5,
-            ipady=9,
-        )
-        self.custom_review_entry.insert(0, "Type a custom review...")
-        self.custom_review_entry.bind(
-            "<FocusIn>", self.clear_custom_placeholder
-        )
-        self.custom_review_entry.bind(
-            "<Return>", lambda event: self.analyze_custom_review()
-        )
-
-        self.run_custom_button = tk.Button(
-            controls_section,
-            text="Run",
-            command=self.analyze_custom_review,
-            **button_style,
-        )
-        self.run_custom_button.grid(
-            row=1, column=1, sticky="ew", padx=(5, 0), pady=5
-        )
+        self.build_controls(controls_section)
 
         self.reviews = self.load_reviews()
         self.review_count_label.configure(
@@ -298,231 +225,6 @@ class DartVaderApp:
     def clear_custom_placeholder(self, event=None):
         if self.custom_review_entry.get() == "Type a custom review...":
             self.custom_review_entry.delete(0, tk.END)
-
-    def show_mood(self, image_name, mood_text):
-        image_path = os.path.join(MOOD_IMAGE_DIR, image_name)
-
-        if not os.path.exists(image_path):
-            self.mood_text_label.configure(
-                text=f"{mood_text}\n(Image not found)"
-            )
-            self.mood_image_label.configure(image="")
-            self.mood_photo = None
-            return
-
-        try:
-            with Image.open(image_path) as image:
-                image = image.convert("RGB")
-                image.thumbnail(
-                    MOOD_IMAGE_SIZE,
-                    Image.Resampling.LANCZOS,
-                )
-
-                canvas = Image.new(
-                    "RGB",
-                    MOOD_IMAGE_SIZE,
-                    THEME["panel"],
-                )
-                x = (MOOD_IMAGE_SIZE[0] - image.width) // 2
-                y = (MOOD_IMAGE_SIZE[1] - image.height) // 2
-                canvas.paste(image, (x, y))
-
-            self.mood_photo = ImageTk.PhotoImage(canvas)
-            self.mood_image_label.configure(image=self.mood_photo)
-            self.mood_text_label.configure(text=mood_text)
-
-        except (OSError, ValueError) as error:
-            self.mood_image_label.configure(image="")
-            self.mood_photo = None
-            self.mood_text_label.configure(
-                text=f"{mood_text}\n(Could not load image)"
-            )
-            print(f"Could not load mood image '{image_path}': {error}")
-
-    
-    def load_reviews(self):
-        if not os.path.exists(DATA_FILE):
-            messagebox.showerror(
-                "Reviews Not Found",
-                f"Could not find the original reviews file:\n"
-                f"{DATA_FILE}",
-            )
-            return []
-
-        try:
-            with open(
-                DATA_FILE,
-                "r",
-                encoding="utf-8-sig",
-                newline="",
-            ) as file:
-                reader = csv.DictReader(file)
-                return [
-                    row
-                    for row in reader
-                    if row.get("review_text", "").strip()
-                ]
-
-        except (OSError, csv.Error) as error:
-            messagebox.showerror(
-                "Could Not Read Reviews",
-                f"An error occurred while reading the CSV:\n{error}",
-            )
-            return []
-
-    def display_review(self, review_text, sentiment, score):
-        sentiment = sentiment.lower()
-        percentage = round(score * 100)
-
-        if sentiment == "positive":
-            color = THEME["positive"]
-            sign = "+" if percentage >= 0 else ""
-        elif sentiment == "negative":
-            color = THEME["negative"]
-            sign = "+" if percentage > 0 else ""
-        else:
-            color = THEME.get("neutral", THEME["muted"])
-            sign = "+" if percentage > 0 else ""
-
-        self.review_label.configure(text=review_text)
-        self.sentiment_label.configure(
-            text=sentiment.capitalize(),
-            fg=color,
-        )
-        self.score_label.configure(
-            text=f"{sign}{percentage}%",
-            fg=color,
-        )
-
-        if score >= 0.70:
-            self.show_mood("70+.jpg", "Very Happy")
-        elif score >= 0.60:
-            self.show_mood("60-70.jpg", "Happy")
-        elif score >= 0.50:
-            self.show_mood("50-60.jpg", "Happy")
-        elif score >= 0.40:
-            self.show_mood("40-50.jpg", "Pleased")
-        elif score >= 0.30:
-            self.show_mood("30-40.jpg", "Pleased")
-        elif score >= 0.20:
-            self.show_mood("20-30.jpg", "Slightly Positive")
-        elif score >= 0.10:
-            self.show_mood("10-20.jpg", "Slightly Positive")
-        elif score >= 0:
-            self.show_mood("0-10.jpg", "Neutral")
-        elif score > -0.10:
-            self.show_mood("-0-10.jpg", "Slightly Negative")
-        elif score > -0.20:
-            self.show_mood("-10-20.jpg", "Slightly Negative")
-        elif score > -0.30:
-            self.show_mood("-20-30.jpg", "Upset")
-        elif score > -0.40:
-            self.show_mood("-30-40.jpg", "Upset")
-        elif score > -0.50:
-            self.show_mood("-40-50.jpg", "Angry")
-        elif score > -0.60:
-            self.show_mood("-50-60.jpg", "Angry")
-        elif score > -0.70:
-            self.show_mood("-60-70.jpg", "Very Angry")
-        else:
-            self.show_mood("-70+.jpg", "Furious")
-    
-    def roll_review(self):
-        if not self.reviews:
-            messagebox.showwarning(
-                "No Reviews",
-                "No reviews are available. Check the original CSV file.",
-            )
-            return
-
-        review = random.choice(self.reviews)
-        self.current_review = review.copy()
-
-        review_text = review.get("review_text", "").strip()
-
-        # Show the review, but wait for Start Analysis.
-        self.review_label.configure(text=review_text)
-        self.sentiment_label.configure(
-            text="Not analyzed",
-            fg=THEME["muted"],
-        )
-        self.score_label.configure(
-            text="—",
-            fg=THEME["text"],
-        )
-        self.show_mood("0.jpg", "Waiting for analysis...")
-
-    def start_analysis(self):
-        if self.current_review is None:
-            messagebox.showwarning(
-                "No Review Selected",
-                "Click Roll a Review before starting the analysis.",
-            )
-            return
-
-        review_text = self.current_review.get("review_text", "").strip()
-
-        if not review_text:
-            messagebox.showwarning(
-                "Empty Review",
-                "The selected review has no text to analyze.",
-            )
-            return
-
-        try:
-            result = analyze_sentiment(review_text)
-            sentiment = result["sentiment"]
-            score = float(result["score"])
-
-            self.current_review["sentiment"] = sentiment
-            self.current_review["sentiment_score"] = score
-
-            self.display_review(review_text, sentiment, score)
-
-        except (KeyError, TypeError, ValueError) as error:
-            messagebox.showerror(
-                "Analysis Failed",
-                f"Could not process the analysis result:\n{error}",
-            )
-        except Exception as error:
-            messagebox.showerror(
-                "Analysis Failed",
-                f"An error occurred during analysis:\n{error}",
-            )
-
-    def analyze_custom_review(self):
-        review_text = self.custom_review_entry.get().strip()
-
-        if not review_text or review_text == "Type a custom review...":
-            messagebox.showwarning(
-                "Empty Review",
-                "Please type a review first.",
-            )
-            return
-
-        try:
-            result = analyze_sentiment(review_text)
-            sentiment = result["sentiment"]
-            score = float(result["score"])
-
-            self.current_review = {
-                "review_text": review_text,
-                "sentiment": sentiment,
-                "sentiment_score": score,
-            }
-
-            self.display_review(review_text, sentiment, score)
-
-        except (KeyError, TypeError, ValueError) as error:
-            messagebox.showerror(
-                "Analysis Failed",
-                f"Could not process the analysis result:\n{error}",
-            )
-        except Exception as error:
-            messagebox.showerror(
-                "Analysis Failed",
-                f"An error occurred during analysis:\n{error}",
-            )
 
 def main():
     root = tk.Tk()
