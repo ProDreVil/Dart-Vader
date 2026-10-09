@@ -44,7 +44,7 @@ def main():
         print(f"Score: {result['score']}")
         print(f"Sentiment: {result['sentiment']}")
         print("\n" + "=" * 60)
-    print("INTERACTIVE TEST")
+    print("MANUAL TEST")
     print("=" * 60)
     while True:
         review = input("\nEnter test review: ")

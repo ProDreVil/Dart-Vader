@@ -34,6 +34,7 @@ ENGLISH_POSITIVE = {
     "affordable": 1.6,
     "satisfying": 2.3,
     "satisfaction": 2.3,
+    "classy": 2.2,
     "genuine": 2.0,
     "authentic": 2.0,
     "helpful": 2.2,
@@ -359,19 +360,24 @@ def is_negation(word):
 def get_booster(word):
     return BOOSTERS.get(word.lower(), 0)
 
+
 def levenshtein_distance(first, second):
-    if len(first) < len(second):
-        return levenshtein_distance(second, first)
-    previous_row = list(range(len(second) + 1))
-    for i, first_char in enumerate(first, start=1):
-        current_row = [i]
-        for j, second_char in enumerate(second, start=1):
-            insertions = previous_row[j] + 1
-            deletions = current_row[j - 1] + 1
-            substitutions = previous_row[j - 1] + (first_char != second_char)
-            current_row.append(min(insertions, deletions, substitutions))
-        previous_row = current_row
-    return previous_row[-1]
+    first = first.lower()
+    second = second.lower()
+    rows = len(first) + 1
+    columns = len(second) + 1
+    distance = [[0] * columns for _ in range(rows)]
+    for i in range(rows):
+        distance[i][0] = i
+    for j in range(columns):
+        distance[0][j] = j
+    for i in range(1, rows):
+        for j in range(1, columns):
+            cost = 0 if first[i - 1] == second[j - 1] else 1
+            distance[i][j] = min(distance[i - 1][j] + 1, distance[i][j - 1] + 1, distance[i - 1][j - 1] + cost)
+            if (i > 1 and j > 1 and first[i - 1] == second[j - 2] and first[i - 2] == second[j - 1]):
+                distance[i][j] = min(distance[i][j], distance[i - 2][j - 2] + 1)
+    return distance[-1][-1]
 
 def find_closest_word(word):
     word = word.lower()

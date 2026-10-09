@@ -36,9 +36,9 @@ def analyze_sentiment(text):
             closest_word, distance = find_closest_word(normalized_token)
             if closest_word is not None:
                 word_score = get_word_score(closest_word)
-                repeated_booster = get_repeated_letter_booster(token)
-                if repeated_booster != 0:
-                    word_score = apply_booster(word_score, repeated_booster)
+        repeated_booster = get_repeated_letter_booster(token)
+        if repeated_booster != 0:
+            word_score = apply_booster(word_score, repeated_booster)
         if word_score == 0:
             emoji_score = get_emoji_score(token)
             if emoji_score != 0:
