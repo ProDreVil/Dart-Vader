@@ -3,10 +3,12 @@
 # ============================================================
 
 ENGLISH_POSITIVE = {
+    "safe": 1.6,
     "damn": 2.5,
     "good": 2.5,
     "extraordinary": 3.3,
     "great": 3.1,
+    "simple": 1.7,
     "excellent": 3.4,
     "amazing": 3.2,
     "love": 3.2,
@@ -43,6 +45,8 @@ ENGLISH_POSITIVE = {
     "brilliant": 3.0,
     "pleased": 2.4,
     "thanks": 1.7,
+    "thank you": 1.7,
+    "thankful": 1.9,
     "favorite": 2.5,
     "cute": 2.0,
     "lovely": 2.8,
@@ -59,8 +63,6 @@ ENGLISH_POSITIVE = {
     "quick": 1.6,
     "polite": 2.0,
     "friendly": 2.0,
-    "thank": 1.7,
-    "thank you": 1.7,
     "enjoy": 2.3,
     "enjoyed": 2.3,
     "exceeded": 2.4,
@@ -80,6 +82,7 @@ ENGLISH_POSITIVE = {
 # ============================================================
 
 TAGALOG_POSITIVE = {
+    "pwede na": 1.7,
     "bangis": 2.0,
     "maganda": 2.6,
     "bagay": 2.2,
@@ -144,6 +147,8 @@ TAGALOG_POSITIVE = {
 # ============================================================
 
 ENGLISH_NEGATIVE = {
+    "not interested": -1.5,
+    "hassle": -2.0,
     "idiot": -1.9,
     "dambass": -2.0,
     "bitch": -2.0,
@@ -211,6 +216,8 @@ ENGLISH_NEGATIVE = {
 # ============================================================
 
 TAGALOG_NEGATIVE = {
+    "anak ng": -1.9,
+    "nakakasira": -2.0,
     "kingina": -3.0,
     "tangina": -3.0,
     "putangina": -3.0,
