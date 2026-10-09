@@ -2,7 +2,16 @@
 # ENGLISH POSITIVE WORDS
 # ============================================================
 
-ENGLISH_POSITIVE = {
+ENGLISH_POSITIVE = { 
+    "looks good": 2.2,
+    "okay for the price": 1.2, 
+    "match my expectations": 2.5,
+    "as advertised": 2.0,
+    "what you see is what you get": 2.5,
+    "well pack": 2.0,
+    "well packed": 2.0,
+    "i like it": 2.0,
+    "true to size": 2.5,
     "safe": 1.6,
     "damn": 2.5,
     "good": 2.5,
@@ -89,6 +98,14 @@ ENGLISH_POSITIVE = {
 # ============================================================
 
 TAGALOG_POSITIVE = {
+    "pwede na": 0.8,
+    "simple lang": 0.5,
+    "ok lang": 0.5,
+    "okay lang": 0.5,
+    "ok naman": 1.0,
+    "okay naman": 1.0,
+    "lubos na inirerekomenda": 3.0,
+    "totoo sa laki": 2.5,
     "pwede na": 1.7,
     "bangis": 2.0,
     "maganda": 2.6,
@@ -161,6 +178,12 @@ TAGALOG_POSITIVE = {
 # ============================================================
 
 ENGLISH_NEGATIVE = {
+    "not as described": -2.8,
+    "not as shown": -2.5,
+    "not same with the photo": -2.5,
+    "not true to size": -2.0,
+    "expectation vs reality": -2.0,
+    "not so ok": -1.5,
     "not interested": -1.5,
     "hassle": -2.0,
     "idiot": -1.9,
