@@ -17,7 +17,9 @@ if SRC_DIR not in sys.path:
 
 from dartboard import Dartboard
 from utils.themes import THEME, FONTS
-from utils.config import PROJECT_NAME, ANALYZED_DATA_FILE
+from utils.config import PROJECT_NAME, DATA_FILE, ANALYZED_DATA_FILE
+from evaluation.evaluator import analyze_and_save
+from sentiment.analyzer import analyze_sentiment
 
 
 class DartVaderApp:
@@ -285,30 +287,13 @@ class DartVaderApp:
             row=1, column=1, sticky="ew", padx=(5, 0), pady=5
         )
 
-        self.force_positive_button = tk.Button(
-            controls_section,
-            text="Force Positive",
-            command=lambda: self.force_sentiment("positive"),
-            **button_style,
-        )
-        self.force_positive_button.grid(
-            row=2, column=0, sticky="ew", padx=(0, 5), pady=5
-        )
-
-        self.force_negative_button = tk.Button(
-            controls_section,
-            text="Force Negative",
-            command=lambda: self.force_sentiment("negative"),
-            **button_style,
-        )
-        self.force_negative_button.grid(
-            row=2, column=1, sticky="ew", padx=(5, 0), pady=5
-        )
-
         self.reviews = self.load_reviews()
         self.review_count_label.configure(
             text=f"Reviews available: {len(self.reviews)}"
         )
+
+        if self.reviews:
+            self.roll_review()
 
     def clear_custom_placeholder(self, event=None):
         if self.custom_review_entry.get() == "Type a custom review...":
@@ -354,19 +339,19 @@ class DartVaderApp:
             )
             print(f"Could not load mood image '{image_path}': {error}")
 
+    
     def load_reviews(self):
-        if not os.path.exists(ANALYZED_DATA_FILE):
+        if not os.path.exists(DATA_FILE):
             messagebox.showerror(
                 "Reviews Not Found",
-                f"Could not find the analyzed reviews file:\n"
-                f"{ANALYZED_DATA_FILE}\n\n"
-                "Run your analysis script first.",
+                f"Could not find the original reviews file:\n"
+                f"{DATA_FILE}",
             )
             return []
 
         try:
             with open(
-                ANALYZED_DATA_FILE,
+                DATA_FILE,
                 "r",
                 encoding="utf-8-sig",
                 newline="",
@@ -377,6 +362,7 @@ class DartVaderApp:
                     for row in reader
                     if row.get("review_text", "").strip()
                 ]
+
         except (OSError, csv.Error) as error:
             messagebox.showerror(
                 "Could Not Read Reviews",
@@ -440,38 +426,69 @@ class DartVaderApp:
             self.show_mood("-60-70.jpg", "Very Angry")
         else:
             self.show_mood("-70+.jpg", "Furious")
-
+    
     def roll_review(self):
         if not self.reviews:
             messagebox.showwarning(
                 "No Reviews",
-                "No reviews are available. Check the analyzed CSV file.",
+                "No reviews are available. Check the original CSV file.",
             )
             return
 
         review = random.choice(self.reviews)
-        self.current_review = review
+        self.current_review = review.copy()
 
         review_text = review.get("review_text", "").strip()
-        sentiment = review.get("sentiment", "neutral").strip().lower()
 
-        try:
-            score = float(review.get("sentiment_score", 0))
-        except (TypeError, ValueError):
-            score = 0.0
-
-        self.display_review(review_text, sentiment, score)
+        # Show the review, but wait for Start Analysis.
+        self.review_label.configure(text=review_text)
+        self.sentiment_label.configure(
+            text="Not analyzed",
+            fg=THEME["muted"],
+        )
+        self.score_label.configure(
+            text="—",
+            fg=THEME["text"],
+        )
+        self.show_mood("0.jpg", "Waiting for analysis...")
 
     def start_analysis(self):
-        messagebox.showinfo(
-            "Start Analysis",
-            "This button is ready for your analysis script to be connected. "
-            "It currently reloads the analyzed reviews.",
-        )
-        self.reviews = self.load_reviews()
-        self.review_count_label.configure(
-            text=f"Reviews available: {len(self.reviews)}"
-        )
+        if self.current_review is None:
+            messagebox.showwarning(
+                "No Review Selected",
+                "Click Roll a Review before starting the analysis.",
+            )
+            return
+
+        review_text = self.current_review.get("review_text", "").strip()
+
+        if not review_text:
+            messagebox.showwarning(
+                "Empty Review",
+                "The selected review has no text to analyze.",
+            )
+            return
+
+        try:
+            result = analyze_sentiment(review_text)
+            sentiment = result["sentiment"]
+            score = float(result["score"])
+
+            self.current_review["sentiment"] = sentiment
+            self.current_review["sentiment_score"] = score
+
+            self.display_review(review_text, sentiment, score)
+
+        except (KeyError, TypeError, ValueError) as error:
+            messagebox.showerror(
+                "Analysis Failed",
+                f"Could not process the analysis result:\n{error}",
+            )
+        except Exception as error:
+            messagebox.showerror(
+                "Analysis Failed",
+                f"An error occurred during analysis:\n{error}",
+            )
 
     def analyze_custom_review(self):
         review_text = self.custom_review_entry.get().strip()
@@ -483,32 +500,29 @@ class DartVaderApp:
             )
             return
 
-        messagebox.showinfo(
-            "Analysis Not Connected",
-            "The custom review field is ready, but the sentiment-analysis "
-            "function still needs to be connected to your analyzer.",
-        )
-
-    def force_sentiment(self, sentiment):
-        if self.current_review is None:
-            messagebox.showwarning(
-                "No Review Selected",
-                "Roll a review first before forcing its sentiment.",
-            )
-            return
         try:
-            score = float(self.current_review.get("sentiment_score", 0))
-        except (TypeError, ValueError):
-            score = 0.0
-        color = (
-            THEME["positive"]
-            if sentiment == "positive"
-            else THEME["negative"]
-        )
-        self.sentiment_label.configure(
-            text=sentiment.capitalize(),
-            fg=color,
-        )
+            result = analyze_sentiment(review_text)
+            sentiment = result["sentiment"]
+            score = float(result["score"])
+
+            self.current_review = {
+                "review_text": review_text,
+                "sentiment": sentiment,
+                "sentiment_score": score,
+            }
+
+            self.display_review(review_text, sentiment, score)
+
+        except (KeyError, TypeError, ValueError) as error:
+            messagebox.showerror(
+                "Analysis Failed",
+                f"Could not process the analysis result:\n{error}",
+            )
+        except Exception as error:
+            messagebox.showerror(
+                "Analysis Failed",
+                f"An error occurred during analysis:\n{error}",
+            )
 
 def main():
     root = tk.Tk()

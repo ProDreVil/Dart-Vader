@@ -1,9 +1,6 @@
 from evaluation.evaluator import analyze_and_save
 from utils.config import DATA_FILE, ANALYZED_DATA_FILE
 
-# DI NA DITO YUNG PAGKUHA NG REVIEWS, CHECK `import.py`
-# DITO MUNA YUNG ANALYSIS
-
 def main():
     print("Started Analysis...")
     output_file = ANALYZED_DATA_FILE
