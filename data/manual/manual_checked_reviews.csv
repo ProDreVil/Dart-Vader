@@ -1,6 +1,9 @@
 review_id,product_name,review_text,date,sentiment_score,sentiment
 review-1,Lucky Me! Pancit Canton Chilimansi 6pcs,Taste: 100 Quality: 10 All time favorite. Salamat sa fast delivery at ky rider so very kind. Thank you so much seller this is my 4th purchase 😉👍👏👌,2023-03-09,0.5305,positive
 review-2,Lucky Me! Pancit Canton Chilimansi 6pcs,"Taste: Ok Quality: Ok Occasion: Ok The item arrived well-packed and in perfect condition. It's easy to use and works just as described. The seller was straightforward and reliable, making this a great buy.",2023-09-24,0.5098,positive
+
+#for review 3 i thinl ite neutral
+
 review-3,Lucky Me! Pancit Canton Chilimansi 6pcs,Texture: The noodles are so chewy and firm! Satisfying! Flavor: I really enjoy this chili calamansi flavor Number 1 Pancit canton from lucky me. + arrived in perfect condition! Delived contactless and door to door. Long expiry date! Will expire in January 2027 and received by august 2026,2026-08-08,-0.3168,negative
 review-4,Lucky Me! Pancit Canton Chilimansi 6pcs,Texture: chewy satisfying texture Flavor: clamansi balanced thr flavor Quality: meets my expectations comforting to eat,2026-05-10,0.6721,positive
 review-5,Lucky Me! Pancit Canton Chilimansi 6pcs,Quality: 10/10 Occasion: for personal use 10/10 Taste: 10/10 As always S&R shopping is the BEST! Thanks Shopee for allowing us to purchase at S&R and packaging was SUPER SECURED! Thanks so much S&R till my next purchase! Thanks so much courier package arrived so secured!,2023-09-24,0.7033,positive
@@ -58,3 +61,42 @@ review-56,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact 
 review-57,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: 10/10 Appearance: good Suitability: good Maganda good for its pricee thankyou seller,2024-07-09,0.7006,positive
 review-58,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: 10/10 Appearance: 10/10 Suitability: 10/10 💯,2025-07-17,0.7419,positive
 review-59,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: good Appearance: good Suitability: good Maganda mukhang tatagal naman siya,2023-07-29,0.5495,positive
+review-60,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: good Ganda Nang item,2024-11-29,0.697,positive
+review-61,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: g Appearance: g Suitability: g Stay safe and dry while enjoying a cup of best KAPE-ling sa maulang panahon ☔,2025-09-09,0.4286,positive
+review-62,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: Maganda po sya Quality: Goods po,2025-07-08,0.7059,positive
+review-63,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: nice Suitability: nice Salamat nice ky baratu ra 🥰🥰,2025-07-14,0.6842,positive
+review-64,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: ok Appearance: ok Suitability: ok Thank you so much😊,2023-04-30,0.4737,positive
+review-65,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Thank you seller at kay kuya rider . Worth it ang piso sa UV umbrella,2024-07-03,0.5775,positive
+review-66,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: good highly recommend Appearance: good Suitability: good,2026-01-09,0.696,positive
+review-67,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: very good Suitability: good Appearance: very good,2025-08-07,0.7087,positive
+review-68,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: good Quality: good Suitability: good Salamat seller,2024-12-11,0.6748,positive
+review-69,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: good Suitability: good,2024-07-22,0.6721,positive
+review-70,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,"Thank You seller, nhkahabol png christmas party..Excellent Quality👍👍👍",2023-12-17,0.6933,positive
+review-71,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: good quality Makapal tela kaso yong kaw nya maliit 😁,2025-06-30,0.6739,positive
+review-72,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: 10/10 Appearance: 10/10 Suitability: mukhang matibay,2026-04-07,0.7321,positive
+review-73,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: GOOD Suitability: GOOD Appearance: Excellent,2025-07-10,0.7345,positive
+review-74,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: ok naman siya Quality: ang ganda ng item na bili ko,2025-07-08,0.2,positive
+review-75,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,The product is real I get the product 19pisos just order here,2025-01-06,0.6774,positive
+review-76,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,"maganda siya. very simple. mas bet ko ganyan kesa sa madaming colors. plus the solar power, no need mamroblema sa sasaksakan.",2023-11-13,0.5778,positive
+review-77,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: good Appearance: good Nice,2024-07-10,0.6667,positive
+
+#review 78 is neutral (mixed)
+
+review-78,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,"Appearance: 10/10 Suitability: 10/10 Quality: 9/10 Okay yung item at working naman. Ang problema lang ang SPX, June 9 ko inorder at napickup ng courier tapos nareceived ko lang ngayong June 24, 15 days ang delivery sa payong at walang update after June 10. Yung CSR ni shopee wala rin, wala nga silang info kung saan na ang item basta underway daw, 2 weeks underway LoL. Yung nagdelivery sa bahay ay walang problema. Ang respobsible ay ang driver from SOC- Negros> 13 days biyahe without updates.",2025-06-24,0.1333,positive
+review-79,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: 10/10 Suitability: 10/10 Appearance: 10/10,2024-07-12,0.75,positive
+
+#review 80 is neutral why? (simple lang, pwede n)
+
+review-80,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: Simple lang Suitability: Pwede na,2026-07-06,0.6364,positive
+review-81,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: good Quality: good,2023-05-19,0.6774,positive
+review-82,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: Good Appearance: Nice Worth it.,2024-07-07,0.6667,positive
+review-83,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: good Appearance: 👍👍,2024-09-08,0.6703,positive
+review-84,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Suitability: good Quality: good Appearance: good,2023-10-25,0.6774,positive
+review-85,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Appearance: good Suitability: good Quality: good,2025-10-28,0.6774,positive
+
+review 86 is neutral (mixed)
+
+review-86,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Fast delivery average durability,2025-07-10,0.6296,positive
+review-87,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Good quality mukang matibay mura ko lang nabili,2025-11-12,0.6,positive
+review-88,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,Quality: hnd diniliver ng rider Appearance: hnd diniliver ng rider Suitability: hnd diniliver ng rider,2026-06-22,0.0,neutral
+review-89,UV Protection Umbrella Automatic Folding Umbrella Lightweight Compact Sun Umbrella for Women 3,"Maganda sya,nagustuhan ng panganay ko Tama malapit na pasukan.oorder pko para skin Naman iba kulay Naman",2024-07-08,0.625,positive
