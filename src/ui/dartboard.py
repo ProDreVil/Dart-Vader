@@ -1,5 +1,8 @@
 import math
+import os
 import random
+import shutil
+import subprocess
 import tkinter as tk
 
 from utils.themes import THEME
@@ -22,6 +25,16 @@ class Dartboard(tk.Canvas):
         self.target_index = None
         self.active_segment = None
         self.animation_job = None
+        self.project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.sfx_dir = os.path.join(self.project_dir, "resources", "sfx")
+        self.vlc_path = shutil.which("vlc") or os.path.join(
+            os.environ.get("ProgramFiles", r"C:\Program Files"),
+            "VideoLAN",
+            "VLC",
+            "vlc.exe",
+        )
+        self.spin_process = None
+        self.landing_process = None
         self.draw_board()
 
     def assign_values(self, real_score):
@@ -60,6 +73,50 @@ class Dartboard(tk.Canvas):
         self.active_segment = index
         self.draw_board()
 
+    def start_spin_sound(self):
+        self.stop_spin_sound()
+
+        sound_path = os.path.join(self.sfx_dir, "spinning.mp3")
+
+        if os.path.isfile(self.vlc_path) and os.path.isfile(sound_path):
+            self.spin_process = subprocess.Popen(
+                [
+                    self.vlc_path,
+                    "--intf", "dummy",
+                    "--no-video",
+                    "--no-audio-time-stretch",
+                    "--file-caching=0",
+                    "--loop",
+                    sound_path,
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+
+    def stop_spin_sound(self):
+        if self.spin_process and self.spin_process.poll() is None:
+            self.spin_process.terminate()
+
+        self.spin_process = None
+
+    def play_landing_sound(self):
+        sound_path = os.path.join(self.sfx_dir, "tada.mp3")
+
+        if os.path.isfile(self.vlc_path) and os.path.isfile(sound_path):
+            self.landing_process = subprocess.Popen(
+                [
+                    self.vlc_path,
+                    "--intf", "dummy",
+                    "--no-video",
+                    "--no-audio-time-stretch",
+                    "--file-caching=0",
+                    "--play-and-exit",
+                    sound_path,
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+
     def start_animation(self, target_index, on_complete):
         if self.animation_job is not None:
             self.after_cancel(self.animation_job)
@@ -70,9 +127,10 @@ class Dartboard(tk.Canvas):
             return
 
         self.animation_step = 0
-        self.animation_total_steps = random.randint(24, 36)
+        self.animation_total_steps = random.randint(40, 52)
         self.animation_target = target_index
         self.animation_callback = on_complete
+        self.start_spin_sound()
         self._animate_step()
 
     def _animate_step(self):
@@ -81,6 +139,8 @@ class Dartboard(tk.Canvas):
 
         if step >= total:
             self.highlight_segment(self.animation_target)
+            self.stop_spin_sound()
+            self.play_landing_sound()
             self.animation_job = None
             callback = self.animation_callback
             self.animation_callback = None

@@ -1,6 +1,7 @@
 import os
 import sys
 import tkinter as tk
+from PIL import Image, ImageSequence, ImageTk
 
 SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -35,7 +36,7 @@ class DartVaderApp(ReviewDisplayMixin, ControlsMixin):
         ).pack(anchor="w")
         tk.Label(
             header,
-            text="Review Sentiment Analyzer",
+            text="Sentiment Analyzer",
             font=FONTS["heading"],
             bg=THEME["bg"],
             fg=THEME["muted"],
@@ -93,7 +94,7 @@ class DartVaderApp(ReviewDisplayMixin, ControlsMixin):
             fg=THEME["text"],
             justify="left",
             anchor="nw",
-            wraplength=450,
+            wraplength=430,
             padx=12,
             pady=12,
         )
@@ -192,6 +193,98 @@ class DartVaderApp(ReviewDisplayMixin, ControlsMixin):
     def clear_custom_placeholder(self, event=None):
         if self.custom_review_entry.get() == "Type a custom review...":
             self.custom_review_entry.delete(0, tk.END)
+
+    
+    def show_confetti(self):
+        gif_path = os.path.join(
+            os.path.dirname(SRC_DIR),
+            "resources",
+            "images",
+            "confetti.gif",
+        )
+
+        if not os.path.isfile(gif_path):
+            return
+
+        key_color = "#010203"
+
+        try:
+            gif = Image.open(gif_path)
+            screen_width = self.root.winfo_width()
+            screen_height = self.root.winfo_height()
+
+            gif_scale = 0.25
+            gif_width = int(screen_width * gif_scale)
+
+            if screen_width <= 1 or screen_height <= 1:
+                return
+
+            frame_height = max(
+                1,
+                round(gif.height * gif_width / gif.width),
+            )
+
+            frames = []
+            delays = []
+
+            for frame in ImageSequence.Iterator(gif):
+                rgba = frame.convert("RGBA")
+                background = Image.new("RGBA", rgba.size, key_color)
+                background.alpha_composite(rgba)
+
+                resized = background.convert("RGB").resize(
+                    (gif_width, frame_height),
+                    Image.Resampling.LANCZOS,
+                )
+
+                frames.append(ImageTk.PhotoImage(resized, master=self.root))
+                delays.append(
+                    max(10, int(frame.info.get("duration", 100) / 2))
+                )
+
+            overlay = tk.Toplevel(self.root)
+            overlay.overrideredirect(True)
+            overlay.attributes("-topmost", True)
+            overlay.configure(bg=key_color)
+            overlay.attributes("-transparentcolor", key_color)
+            overlay.geometry(
+                f"{screen_width}x{screen_height}"
+                f"+{self.root.winfo_rootx() + 30}+{self.root.winfo_rooty()}"
+            )
+
+            label = tk.Label(
+                overlay,
+                image=frames[0],
+                bg=key_color,
+                bd=0,
+            )
+            label.place(relx=0.5, rely=0.5, anchor="center")
+
+            self.confetti_overlay = overlay
+            self.confetti_frames = frames
+            index = 0
+
+            def animate():
+                nonlocal index
+
+                if not overlay.winfo_exists():
+                    return
+
+                index += 1
+
+                if index >= len(frames):
+                    overlay.destroy()
+                    self.confetti_overlay = None
+                    return
+
+                label.configure(image=frames[index])
+                overlay.after(delays[index], animate)
+
+            overlay.after(delays[0], animate)
+
+        except (OSError, tk.TclError, ValueError):
+            return
+
 
 def main():
     root = tk.Tk()

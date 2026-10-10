@@ -41,6 +41,7 @@ ENGLISH_POSITIVE = {
     "satisfied": 2.3,
     "legit": 2.0,
     "like it": 2.0,
+    "like this": 2.0,
     "awesome": 3.1,
     "fantastic": 3.3,
     "clean": 2.4,
@@ -346,6 +347,7 @@ TAGALOG_NEGATIVE = {
 NEUTRAL_WORDS = {
     "okay": 0.2,
     "ok": 0.2,
+    "this": 0.0,
     "refund": 0.0,
     "kayo": 0.0,
 }

@@ -141,6 +141,7 @@ class ControlsMixin:
 
     def finish_analysis(self, review_text, sentiment, score):
         self.display_review(review_text, sentiment, score)
+        self.show_confetti()
         self.analysis_running = False
         self.start_analysis_button.configure(state="normal")
         self.run_custom_button.configure(state="normal")
@@ -167,6 +168,7 @@ class ControlsMixin:
             }
 
             self.display_review(review_text, sentiment, score)
+            self.show_confetti()
 
         except (KeyError, TypeError, ValueError) as error:
             messagebox.showerror(
