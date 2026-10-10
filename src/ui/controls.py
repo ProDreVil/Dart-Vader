@@ -85,6 +85,7 @@ class ControlsMixin:
         self.run_custom_button.grid(
             row=1, column=1, sticky="ew", padx=(5, 0), pady=5
         )
+        self.analysis_running = False
 
     def start_analysis(self):
         if self.current_review is None:
@@ -104,13 +105,27 @@ class ControlsMixin:
             return
 
         try:
-            result = analyze_sentiment(review_text)
-            sentiment = result["sentiment"]
-            score = float(result["score"])
+            if self.analysis_running:
+                return
 
-            self.current_review["sentiment"] = sentiment
-            self.current_review["sentiment_score"] = score
-            self.display_review(review_text, sentiment, score)
+            sentiment = self.current_review.get("sentiment")
+            score = self.current_review.get("sentiment_score")
+
+            if sentiment is None or score is None:
+                messagebox.showwarning(
+                    "Analysis Not Ready",
+                    "The review's analysis has not been prepared yet.",
+                )
+                return
+
+            self.analysis_running = True
+            self.start_analysis_button.configure(state="disabled")
+            self.run_custom_button.configure(state="disabled")
+
+            self.dartboard.start_animation(
+                self.dartboard.target_index,
+                lambda: self.finish_analysis(review_text, sentiment, score),
+            )
 
         except (KeyError, TypeError, ValueError) as error:
             messagebox.showerror(
@@ -123,6 +138,12 @@ class ControlsMixin:
                 "Analysis Failed",
                 f"An error occurred during analysis:\n{error}",
             )
+
+    def finish_analysis(self, review_text, sentiment, score):
+        self.display_review(review_text, sentiment, score)
+        self.analysis_running = False
+        self.start_analysis_button.configure(state="normal")
+        self.run_custom_button.configure(state="normal")
 
     def analyze_custom_review(self):
         review_text = self.custom_review_entry.get().strip()

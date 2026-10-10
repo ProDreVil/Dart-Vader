@@ -2,9 +2,12 @@ import os
 import csv
 import tkinter as tk
 from tkinter import messagebox
-from PIL import Image, ImageTk
+from unittest import result
+from PIL import Image, ImageTk, ImageDraw, ImageFont
+from pilmoji import Pilmoji
 
 from utils.config import DATA_FILE
+from sentiment.analyzer import analyze_sentiment
 import random
 
 SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,6 +20,51 @@ MOOD_IMAGE_SIZE = (160, 160)
 from utils.themes import THEME
 
 class ReviewDisplayMixin:
+    def render_review_image(self, review_text, width=350):
+        font = ImageFont.truetype("arial.ttf", 16)
+        padding = 12
+        line_spacing = 6
+        max_width = width - (padding * 2)
+
+        words = review_text.split()
+        lines = []
+        current_line = ""
+
+        for word in words:
+            test_line = f"{current_line} {word}".strip()
+            if font.getlength(test_line) <= max_width:
+                current_line = test_line
+            else:
+                if current_line:
+                    lines.append(current_line)
+                current_line = word
+
+        if current_line:
+            lines.append(current_line)
+
+        line_height = font.getbbox("Ag")[3] + line_spacing
+        height = (padding * 2) + max(1, len(lines)) * line_height
+
+        image = Image.new(
+            "RGB",
+            (width, height),
+            THEME["bg"]
+        )
+        draw = ImageDraw.Draw(image)
+
+        with Pilmoji(image) as pilmoji:
+            y = padding
+            for line in lines:
+                pilmoji.text(
+                    (padding, y),
+                    line,
+                    fill=THEME["text"],
+                    font=font
+                )
+                y += line_height
+
+        return ImageTk.PhotoImage(image)
+
     def load_reviews(self):
         if not os.path.exists(DATA_FILE):
             messagebox.showerror(
@@ -57,6 +105,15 @@ class ReviewDisplayMixin:
 
         review = random.choice(self.reviews)
         self.current_review = review.copy()
+
+        result = analyze_sentiment(review.get("review_text", "").strip())
+        self.current_review["sentiment"] = result["sentiment"]
+        self.current_review["sentiment_score"] = float(result["score"])
+
+        print("DEBUG review:", review.get("review_text", "").strip())
+        print("DEBUG analyzer result:", result)
+
+        self.dartboard.assign_values(self.current_review["sentiment_score"])
         review_text = review.get("review_text", "").strip()
 
         self.review_label.configure(text=review_text)
