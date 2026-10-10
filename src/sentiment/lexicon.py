@@ -9,6 +9,8 @@ ENGLISH_POSITIVE = {
     "same with the photo": 2.5,
     "glad": 2.5,
     "cheers": 2.0,
+    "number 1": 2.5,
+    "number one": 2.5,
     "as described": 2.5,
     "well pack": 2.0,
     "well packed": 2.0,

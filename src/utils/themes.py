@@ -12,6 +12,13 @@ THEME = {
     "accent": "#8A7CF6",
     "accent_hover": "#7869E8",
     "button_text": "#FFFFFF",
+    # Button colors
+    "roll_button": "#4F7DF3",
+    "roll_button_hover": "#648DFF",
+    "analysis_button": "#8A7CF6",
+    "analysis_button_hover": "#A094FF",
+    "custom_button": "#399F83",
+    "custom_button_hover": "#4DB597",
     # Sentiment colors
     "positive": "#6EE7B7",
     "negative": "#FB7185",

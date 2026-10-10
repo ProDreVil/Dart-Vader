@@ -4,25 +4,39 @@ from tkinter import messagebox
 from utils.themes import THEME, FONTS
 from sentiment.analyzer import analyze_sentiment
 
-
 class ControlsMixin:
     def build_controls(self, controls_section):
         button_style = {
             "font": FONTS["button"],
-            "bg": THEME["accent"],
             "fg": THEME["button_text"],
-            "activebackground": THEME["accent_hover"],
-            "activeforeground": THEME["button_text"],
             "relief": "flat",
             "cursor": "hand2",
             "pady": 9,
+        }
+
+        roll_style = {
+            **button_style,
+            "bg": THEME["roll_button"],
+            "activebackground": THEME["roll_button_hover"],
+        }
+
+        analysis_style = {
+            **button_style,
+            "bg": THEME["analysis_button"],
+            "activebackground": THEME["analysis_button_hover"],
+        }
+
+        custom_style = {
+            **button_style,
+            "bg": THEME["custom_button"],
+            "activebackground": THEME["custom_button_hover"],
         }
 
         self.roll_button = tk.Button(
             controls_section,
             text="Roll a Review",
             command=self.roll_review,
-            **button_style,
+            **roll_style,
         )
         self.roll_button.grid(
             row=0, column=0, sticky="ew", padx=(0, 5), pady=5
@@ -32,7 +46,7 @@ class ControlsMixin:
             controls_section,
             text="Start Analysis",
             command=self.start_analysis,
-            **button_style,
+            **analysis_style,
         )
         self.start_analysis_button.grid(
             row=0, column=1, sticky="ew", padx=(5, 0), pady=5
@@ -66,7 +80,7 @@ class ControlsMixin:
             controls_section,
             text="Run",
             command=self.analyze_custom_review,
-            **button_style,
+            **custom_style,
         )
         self.run_custom_button.grid(
             row=1, column=1, sticky="ew", padx=(5, 0), pady=5
